@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { packages, image } from '../data/loaders';
+
+const hero = image('package1');
+
+const discounts = [
+  { title: 'Early Bird', body: 'Book 90 days in advance and get 10% off.' },
+  { title: 'Last Minute', body: 'Book within 7 days of arrival for 5% off (subject to availability).' },
+  { title: 'Group Discount', body: 'Groups of 4+ get a 10% discount on the entire booking.' },
+  { title: 'Long Stay', body: 'Stay for 2 weeks or more and receive a 10% discount.' },
+];
+---
+<BaseLayout
+  title="All-Inclusive Surf Packages & Prices | Taghazout, Morocco"
+  description="Find your perfect Morocco surf holiday. All-inclusive surf packages for beginners, advanced surfers, yoga lovers, and digital nomads in Taghazout, Morocco."
+  canonical="/packages"
+  bodyClass="page-packages"
+  breadcrumb={['Packages']}
+>
+  <section class="detail-hero">
+    <img src={hero.src} alt={hero.alt} />
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><span>Packages</span>
+      </nav>
+      <h1>All-Inclusive Surf Packages</h1>
+      <p>Find your perfect Morocco surf holiday. Packages for beginners, advanced surfers, yoga lovers, and digital nomads.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Our Packages</p>
+        <h2>All-Inclusive Stays for Every Type of Surfer</h2>
+      </header>
+      <div class="package-grid">
+        {packages.map((p) => (
+          <article class="package-card">
+            <div class="package-card__media">
+              <img src={image(p.imageId).src} alt={image(p.imageId).alt} width="640" height="440" loading="lazy" />
+              {p.popular && <span class="badge badge-accent-2 package-card__badge">Most Popular</span>}
+            </div>
+            <div class="package-card__body">
+              <h3>{p.shortName}</h3>
+              <p class="package-card__meta">{p.duration}{p.isForTwo ? ' · for two' : ''}</p>
+              <p class="package-card__desc">{p.description.split('\n\n')[0]}</p>
+              <div class="package-card__foot">
+                <div class="package-card__price">
+                  {p.price}
+                  <small>per person</small>
+                </div>
+                <a class="btn btn-primary btn-sm" href={`/packages/${p.id}`}>View Details</a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Our Pricing</p>
+        <h2>Flexible Pricing to Match the Season and Your Plans</h2>
+      </header>
+      <div class="grid-4">
+        {discounts.map((d) => (
+          <article class="feature-card">
+            <h3>{d.title}</h3>
+            <p>{d.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-banner">
+        <img src={image('hero_coaching').src} alt="" aria-hidden="true" />
+        <h2>Not Sure Which Package Fits?</h2>
+        <p>Talk to our team and we will help you choose the perfect surf week for your level, budget and travel dates.</p>
+        <a class="btn btn-primary btn-lg" href="/booking">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

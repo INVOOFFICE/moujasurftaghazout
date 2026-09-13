@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { rooms, image } from '../data/loaders';
+
+const shared = rooms.filter((r) => r.id === 'shared');
+const privates = rooms.filter((r) => r.id !== 'shared');
+
+const included = [
+  'Daily cleaning',
+  'Fast Wi-Fi',
+  'Rooftop terrace',
+  'Sea-view chill areas',
+  'Yoga studio access',
+  'Secure board storage',
+  'Friendly staff 24/7',
+];
+
+const hero = image('accommodation_private');
+---
+<BaseLayout
+  title="Surf Camp Accommodation in Taghazout | Rooms & Apartments"
+  description="Beachfront rooms and apartments in Taghazout, Morocco. Shared dorms, private rooms, studios and self-contained apartments, all steps from the waves with easy upgrades from your package."
+  canonical="/accommodation"
+  bodyClass="page-accommodation"
+  breadcrumb={['Accommodation']}
+>
+  <section class="detail-hero">
+    <img src={hero.src} alt={hero.alt} />
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><span>Accommodation</span>
+      </nav>
+      <h1>Stay by the Ocean in Taghazout</h1>
+      <p>Comfortable rooms and private apartments designed for surfers, couples, groups, and digital nomads.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="feature-row">
+        <div class="feature-row__media">
+          <img src={image('accommodation_main_lounge').src} alt={image('accommodation_main_lounge').alt} width="960" height="720" loading="lazy" />
+        </div>
+        <div class="feature-row__body">
+          <span class="badge badge-primary">Your Home Base</span>
+          <h2>Your Home Base in Taghazout</h2>
+          <p>Welcome to your home away from home. At Mouja Taghazout, our beachfront accommodation is more than just a place to sleep - it is the heart of our community. We offer a range of clean, comfortable, and stylish options to suit every traveler and budget.</p>
+          <p>All our packages include a bed in a vibrant shared room as a base, with easy upgrades to private rooms or self-contained apartments. Find your perfect spot to rest, recharge, and share stories after a day in the waves.</p>
+          <div class="feature-row__cta">
+            <a class="btn btn-primary" href="/booking">Book Your Stay</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Rooms &amp; Apartments</p>
+        <h2>A Range of Options for Every Traveler</h2>
+      </header>
+
+      <h3 class="subhead">Social &amp; Vibrant Shared Rooms</h3>
+      <div class="room-grid">
+        {shared.map((r) => (
+          <article class="room-card">
+            <div class="room-card__media">
+              <img src={image(r.imageId).src} alt={image(r.imageId).alt} width="640" height="440" loading="lazy" />
+            </div>
+            <div class="room-card__body">
+              <h4>{r.name}</h4>
+              <p class="room-card__sub">{r.subtitle}</p>
+              <ul class="checks">
+                {r.features.map((f) => (
+                  <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <p class="room-card__price">Included in all packages</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <h3 class="subhead">Private Rooms &amp; Apartments</h3>
+      <div class="room-grid">
+        {privates.map((r) => (
+          <article class="room-card">
+            <div class="room-card__media">
+              <img src={image(r.imageId).src} alt={image(r.imageId).alt} width="640" height="440" loading="lazy" />
+            </div>
+            <div class="room-card__body">
+              <h4>{r.name}</h4>
+              <p class="room-card__sub">{r.subtitle}</p>
+              <ul class="checks">
+                {r.features.map((f) => (
+                  <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <p class="room-card__price">+&euro;{r.upgradePrice} / week</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">What's Included</p>
+        <h2>What's Included in All Stays</h2>
+      </header>
+      <div class="included-grid">
+        {included.map((i) => (
+          <div class="included-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+            <span>{i}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <span class="badge badge-primary">Simple, Transparent Pricing</span>
+          <h2>No Hidden Fees, No Surprises</h2>
+          <p>Our pricing is easy to understand. Your final price is simply the package's base price plus your chosen room upgrade. All packages start with a shared room included, so you can customize your stay to fit your budget and style.</p>
+          <div class="feature-row__cta">
+            <a class="btn btn-outline" href="/packages">View Surf Packages</a>
+          </div>
+        </div>
+        <div class="cta-banner">
+          <img src={image('accommodation_studio').src} alt="" aria-hidden="true" />
+          <h3>Ready to Book Your Stay?</h3>
+          <p>Choose your package, select your room, and your price updates instantly.</p>
+          <a class="btn btn-primary btn-lg" href="/booking">Check Availability</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

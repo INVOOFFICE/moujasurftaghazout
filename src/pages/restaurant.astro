@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { restaurant, image } from '../data/loaders';
+
+const hero = image('food_rooftop_dining');
+---
+<BaseLayout
+  title="Mouja Taghazout Kitchen | Healthy Restaurant in Taghazout"
+  description="Our on-site restaurant at the beachfront surf camp in Taghazout. Authentic Moroccan tagines, fresh ocean fish BBQ, healthy surf bowls and rooftop dining with ocean views."
+  canonical="/restaurant"
+  bodyClass="page-restaurant"
+  breadcrumb={['Restaurant']}
+>
+  <section class="detail-hero">
+    <img src={hero.src} alt={hero.alt} />
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><span>Restaurant</span>
+      </nav>
+      <h1>{restaurant.title}</h1>
+      <p>{restaurant.subtitle}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="feature-row">
+        <div class="feature-row__media">
+          <img src={image('food_tagine').src} alt={image('food_tagine').alt} width="960" height="720" loading="lazy" />
+        </div>
+        <div class="feature-row__body">
+          <span class="badge badge-primary">Our Kitchen</span>
+          <h2>A Taste of Morocco, Made for Surfers</h2>
+          <p>{restaurant.description}</p>
+          <p>{restaurant.philosophy}</p>
+          <div class="feature-row__cta">
+            <a class="btn btn-primary" href="/booking">Book Your Stay</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Menu Highlights</p>
+        <h2>Signature Dishes</h2>
+      </header>
+      <div class="grid-2">
+        {restaurant.menuHighlights.map((m) => (
+          <article class="menu-card">
+            <img src={image(m.imageId).src} alt={image(m.imageId).alt} width="400" height="400" loading="lazy" />
+            <div class="menu-card__body">
+              <h3>{m.name}</h3>
+              <p>{m.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Rooftop Dining</p>
+        <h2>Our Kitchen Gallery</h2>
+      </header>
+      <div class="gallery">
+        {restaurant.galleryIds.map((id) => (
+          <img src={image(id).src} alt={image(id).alt} width="400" height="400" loading="lazy" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="cta-banner">
+        <img src={image('food_rooftop_dining').src} alt="" aria-hidden="true" />
+        <h2>Eat Well. Surf Better.</h2>
+        <p>Join us for family-style dinners on the rooftop, fresh from the local market every day.</p>
+        <a class="btn btn-primary btn-lg" href="/booking">Plan Your Stay</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

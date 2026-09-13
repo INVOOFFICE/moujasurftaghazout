@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE, image } from '../../data/loaders';
+import { articleNode } from '../../lib/seo/schema';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.md$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const slug = post.id.replace(/\.md$/, '');
+const { Content } = await render(post);
+
+const heroImages: Record<string, string> = {
+  '7-reasons-why-taghazout-is-a-surfers-paradise': 'blog_post_1',
+  'your-first-surf-lesson-what-to-expect': 'blog_post_2',
+};
+const ogImage = image(heroImages[slug] ?? 'blog_post_1').src;
+const pageUrl = new URL(`/blog/${slug}`, SITE.url).href;
+const articleImage = new URL(ogImage, SITE.url).href;
+---
+
+<BaseLayout
+  title={`${post.data.title} | MOUJA TAGHAZOUT Journal`}
+  description={post.data.description}
+  canonical={`/blog/${slug}`}
+  ogType="article"
+  ogImage={ogImage}
+  bodyClass="page-blog-post"
+  schema={[
+    articleNode({
+      url: pageUrl,
+      headline: post.data.title,
+      description: post.data.description,
+      datePublished: post.data.pubDate.toISOString(),
+      author: post.data.author,
+      image: articleImage,
+    }),
+  ]}
+  mainEntity={`${pageUrl}#article`}
+  breadcrumb={['Blog', post.data.title]}
+>
+  <article class="section">
+    <div class="container post-article">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><a href="/blog">Blog</a>
+      </nav>
+      <header>
+        <span class="badge badge-primary">Journal</span>
+        <h1>{post.data.title}</h1>
+        <div class="post-meta-row">
+          <time datetime={post.data.pubDate.toISOString()}>
+            {post.data.pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+          </time>
+          <span>By {post.data.author}</span>
+        </div>
+      </header>
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="cta-banner">
+        <h2>Ready to Write Your Own Story?</h2>
+        <p>Book your surf week in Taghazout and start your own chapter.</p>
+        <a class="btn btn-primary btn-lg" href="/booking">Book Your Trip</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

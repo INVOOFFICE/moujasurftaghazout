@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { shop, image } from '../data/loaders';
+
+const hero = image('surf_shop_hero');
+---
+<BaseLayout
+  title="Taghazout Surf Shop | Rentals, Boards & Apparel"
+  description="The on-site surf shop at Mouja Taghazout. Premium surfboard and wetsuit rentals, boards for sale, and authentic Moroccan apparel and souvenirs."
+  canonical="/surf-shop"
+  bodyClass="page-surf-shop"
+  breadcrumb={['Surf Shop']}
+>
+  <section class="detail-hero">
+    <img src={hero.src} alt={hero.alt} />
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><span>Surf Shop</span>
+      </nav>
+      <h1>{shop.title}</h1>
+      <p>{shop.subtitle}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="feature-row">
+        <div class="feature-row__media">
+          <img src={image('surf_shop_hero').src} alt={image('surf_shop_hero').alt} width="960" height="720" loading="lazy" />
+        </div>
+        <div class="feature-row__body">
+          <span class="badge badge-primary">On-Site Hub</span>
+          <h2>Everything You Need, Steps From the Sand</h2>
+          <p>{shop.description}</p>
+          <div class="feature-row__cta">
+            <a class="btn btn-primary" href="/booking">Book Your Stay</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">What We Offer</p>
+        <h2>Rentals, Boards &amp; Local Style</h2>
+      </header>
+      <div class="grid-3">
+        {shop.offerings.map((o) => (
+          <article class="feature-card">
+            <h3>{o.title}</h3>
+            <p>{o.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Featured Products</p>
+        <h2>Take Home a Piece of Taghazout</h2>
+      </header>
+      <div class="grid-3">
+        {shop.products.map((p) => (
+          <article class="menu-card">
+            <div class="menu-card__body">
+              <h3>{p.name}</h3>
+              <p class="menu-card__price">{p.price}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="note">More exclusive products and a wider range of boards available in-store. Come say hi!</p>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="cta-banner">
+        <img src={image('shop_leash').src} alt="" aria-hidden="true" />
+        <h2>Visit the Shop at Camp</h2>
+        <p>Forget hauling your board across the world. Rent top-quality gear on arrival and travel light.</p>
+        <a class="btn btn-primary btn-lg" href="/booking">Book Your Stay</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

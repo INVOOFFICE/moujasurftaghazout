@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, image } from '../data/loaders';
+import { serviceNode } from '../lib/seo/schema';
+
+const pageUrl = new URL('/surf-camp', SITE.url).href;
+
+const levels = [
+  { name: 'Beginner (Level 1)', body: 'Never surfed before or just tried a few times? This is where your journey begins. We will teach you the fundamentals in a safe, fun, and encouraging way. Our goal is to get you standing up and riding your first white water waves with a huge smile on your face. We focus on safety, board handling, and catching as many waves as possible.', pkgUrl: '/packages/starter-surfer', pkgLabel: 'View Beginner Package' },
+  { name: 'Intermediate', body: 'You can comfortably catch green waves and are looking to progress. We will help you refine your technique, improve wave reading, and start performing basic maneuvers like bottom turns and cutbacks. Our coaches use video feedback to accelerate your progress and help you break through plateaus.', pkgUrl: '/packages/starter-surfer', pkgLabel: 'View Beginner & Intermediate Package' },
+  { name: 'Advanced Guiding', body: 'You are an experienced and independent surfer. Our local guides will take you to the best-uncrowded point breaks, reefs, and beach breaks in the area. Forget spending hours checking forecasts; we have the local knowledge to find the swell and get you into the best waves of your trip.', pkgUrl: '/packages/wave-warrior', pkgLabel: 'View Advanced Package' },
+];
+
+const schedule = [
+  { time: '09:00', act: "Hearty surfer's breakfast on the rooftop" },
+  { time: '10:00', act: 'Depart for the best surf spot of the day' },
+  { time: '10:30', act: 'Morning Surf Lesson / Guided Surf' },
+  { time: '13:00', act: 'Packed lunch on the beach' },
+  { time: '14:30', act: 'Free surf session to practice your skills' },
+  { time: '19:00', act: 'Family-style dinner at the surf house' },
+  { time: '20:30', act: 'Photo/video analysis or chill evening' },
+];
+
+const included = [
+  'Daily Surf Lessons or Guiding',
+  'Surfboard & Wetsuit Rental',
+  'Healthy Breakfast & Dinner',
+  'Comfortable Accommodation',
+  'Airport & Spot Transfers',
+  'Photo/Video Analysis',
+];
+
+const hero = image('hero_coaching');
+---
+<BaseLayout
+  title="The Ultimate Taghazout Surf Camp Experience | Morocco"
+  description="The complete Taghazout surf camp experience: ISA-certified coaching for all levels, a typical day in the surf, and all-inclusive stays. Your home by the sea in Morocco."
+  canonical="/surf-camp"
+  bodyClass="page-surf-camp"
+  schema={[
+    serviceNode({
+      id: `${pageUrl}#service`,
+      name: 'Surf Camp in Taghazout',
+      description:
+        'More than a holiday; it is a full immersion into the surf lifestyle with ISA-certified coaching for all levels.',
+      url: pageUrl,
+      serviceType: 'Surf Camp',
+    }),
+  ]}
+  mainEntity={`${pageUrl}#service`}
+  breadcrumb={['The Surf Camp']}
+>
+  <section class="detail-hero">
+    <img src={hero.src} alt={hero.alt} />
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><span>The Surf Camp</span>
+      </nav>
+      <h1>The Complete Surf Camp Experience</h1>
+      <p>More than a holiday; it is a full immersion into the surf lifestyle.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="feature-row">
+        <div class="feature-row__media">
+          <img src={image('accommodation_main_lounge').src} alt={image('accommodation_main_lounge').alt} width="960" height="720" loading="lazy" />
+        </div>
+        <div class="feature-row__body">
+          <span class="badge badge-primary">Coaching for All Levels</span>
+          <h2>From Your First Wave to Advanced Guiding</h2>
+          <p>Our ISA-certified coaches are here for you at every stage. Just pack your bags, bring good vibes, and we will handle the rest.</p>
+          <div class="feature-row__cta">
+            <a class="btn btn-primary" href="/packages">View All Packages</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Coaching for All Levels</p>
+        <h2>Find Your Level</h2>
+      </header>
+      <div class="grid-3">
+        {levels.map((l) => (
+          <article class="feature-card">
+            <h3>{l.name}</h3>
+            <p>{l.body}</p>
+            <div class="feature-row__cta">
+              <a class="btn btn-sm btn-outline" href={l.pkgUrl}>{l.pkgLabel}</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Your Day</p>
+        <h2>A Typical Day at Mouja Taghazout</h2>
+        <p>*This is a sample schedule. The surf is our boss! We adapt daily to swell and tide conditions to ensure you are at the best spot at the best time.</p>
+      </header>
+      <div class="schedule">
+        {schedule.map((s) => (
+          <div class="schedule__row">
+            <span class="schedule__time">{s.time}</span>
+            <span class="schedule__act">{s.act}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Included</p>
+        <h2>Everything Taken Care Of</h2>
+      </header>
+      <div class="included-grid">
+        {included.map((i) => (
+          <div class="included-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+            <span>{i}</span>
+          </div>
+        ))}
+      </div>
+      <div class="center">
+        <a class="btn btn-primary btn-lg" href="/packages">View All Packages</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

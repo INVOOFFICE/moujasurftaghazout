@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, packages, image } from '../data/loaders';
+
+const hero = image('hero_coaching');
+---
+
+<BaseLayout
+  title="Book Your Stay | MOUJA TAGHAZOUT"
+  description="Book your all-inclusive surf week in Taghazout, Morocco. Choose your package, check availability, and secure your spot. Airport pickup from Agadir included."
+  canonical="/booking"
+  bodyClass="page-booking"
+  breadcrumb={['Booking']}
+>
+  <section class="detail-hero">
+    <img src={hero.src} alt={hero.alt} />
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><span>Booking</span>
+      </nav>
+      <h1>Book Your Stay</h1>
+      <p>Your Moroccan surf adventure is just a few clicks away.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-col">
+      <div>
+        <span class="badge badge-primary">Booking Request</span>
+        <h2>Tell Us About Your Trip</h2>
+        <p class="form-intro">
+          Fill in the form and we'll get back to you within 24 hours with availability and a tailored
+          quote. Submitting opens WhatsApp with your details ready to send.
+        </p>
+        <form class="form" data-booking-form novalidate>
+          <div class="form-row form-row--2">
+            <div class="field">
+              <label for="name">Full Name</label>
+              <input class="input" id="name" name="name" type="text" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input class="input" id="email" name="email" type="email" required />
+            </div>
+          </div>
+          <div class="form-row form-row--2">
+            <div class="field">
+              <label for="dates">Travel Dates</label>
+              <input class="input" id="dates" name="dates" type="text" placeholder="e.g. 12-19 April" />
+            </div>
+            <div class="field">
+              <label for="package">Preferred Package</label>
+              <select class="select" id="package" name="package">
+                <option value="">Select a package</option>
+                {packages.map((p) => (
+                  <option value={p.name}>{p.name} ({p.price})</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea
+              class="textarea"
+              id="message"
+              name="message"
+              rows="5"
+              placeholder="Tell us about your level, group size and any questions"
+            ></textarea>
+          </div>
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Send Booking Request</button>
+        </form>
+      </div>
+
+      <aside class="stack">
+        <div class="card">
+          <div class="card-body">
+            <h3>Prefer to Talk?</h3>
+            <ul class="dot-list">
+              <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+              <li><a href={`tel:${SITE.phone.replace(/[^0-9+]/g, '')}`}>{SITE.phone}</a></li>
+              <li>
+                <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp us</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h3>What's Included</h3>
+            <ul class="checks">
+              <li>Free airport transfer from/to Agadir (AGA)</li>
+              <li>All surf coaching and equipment</li>
+              <li>Beachfront accommodation</li>
+              <li>Healthy daily meals</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-booking-form]');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = (data.get('name') as string)?.trim() ?? '';
+    const email = (data.get('email') as string)?.trim() ?? '';
+    const dates = (data.get('dates') as string)?.trim() ?? '';
+    const pkg = (data.get('package') as string)?.trim() ?? '';
+    const message = (data.get('message') as string)?.trim() ?? '';
+
+    if (!name || !email) {
+      form.querySelector<HTMLInputElement>('input[name="name"]')?.focus();
+      return;
+    }
+
+    const lines = [
+      'New booking request from the website',
+      `Name: ${name}`,
+      `Email: ${email}`,
+      dates ? `Dates: ${dates}` : '',
+      pkg ? `Package: ${pkg}` : '',
+      message ? `Message: ${message}` : '',
+    ].filter(Boolean);
+
+    const url = `https://wa.me/48662763381?text=${encodeURIComponent(lines.join('\n'))}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+</script>

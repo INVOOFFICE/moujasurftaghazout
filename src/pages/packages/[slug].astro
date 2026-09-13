@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE, packages, getPackage, image } from '../../data/loaders';
+import { serviceNode, offerNode, faqPageNode } from '../../lib/seo/schema';
+
+export function getStaticPaths() {
+  return packages.map((p) => ({ params: { slug: p.id } }));
+}
+
+const { slug } = Astro.params;
+const pkg = getPackage(slug);
+
+if (!pkg) {
+  return Astro.redirect('/packages');
+}
+
+const { name, shortName, description, price, duration, features, imageId, highlights, schedule, faqs } = pkg;
+const pageUrl = new URL(`/packages/${slug}`, SITE.url).href;
+---
+<BaseLayout
+  title={`${name} | Taghazout, Morocco`}
+  description={description.split('\n\n')[0]}
+  canonical={`/packages/${slug}`}
+  ogImage={image(imageId).src}
+  bodyClass="page-package"
+  schema={[
+    serviceNode({
+      id: `${pageUrl}#service`,
+      name: shortName,
+      description: description.split('\n\n')[0],
+      url: pageUrl,
+      serviceType: 'Surf Package',
+    }),
+    offerNode({
+      id: `${pageUrl}#offer`,
+      name: shortName,
+      url: pageUrl,
+      price: pkg.basePrice,
+      itemOfferedId: `${pageUrl}#service`,
+    }),
+    ...(faqs && faqs.length > 0 ? [faqPageNode(`${pageUrl}#faq`, faqs)] : []),
+  ]}
+  mainEntity={`${pageUrl}#service`}
+  breadcrumb={['Packages', shortName]}
+>
+  <section class="detail-hero">
+    <img src={image(imageId).src} alt={image(imageId).alt} />
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><a href="/packages">Packages</a><span aria-hidden="true">/</span><span>{shortName}</span>
+      </nav>
+      <h1>{shortName}</h1>
+      <p>{name} · {duration}</p>
+      <span class="detail-hero__price">{price}</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-col">
+      <div class="prose">
+        <span class="badge badge-primary">Overview</span>
+        <h2>About This Package</h2>
+        {description.split('\n\n').map((para) => (
+          <p>{para}</p>
+        ))}
+
+        {highlights && highlights.length > 0 && (
+          <div class="highlight-grid">
+            {highlights.map((h) => (
+              <div class="highlight-box">
+                <b>{h.label}</b>
+                <span>{h.value}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {schedule && schedule.length > 0 && (
+          <>
+            <h2 class="subhead">A Typical Day</h2>
+            <div class="schedule">
+              {schedule.map((s) => (
+                <div class="schedule__row">
+                  <span class="schedule__time">{s.time}</span>
+                  <span class="schedule__act">{s.activity}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      <aside class="sticky">
+        <div class="card">
+          <div class="card-body">
+            <h3>What's Included</h3>
+            <ul class="checks">
+              {features.map((f) => (
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a class="btn btn-primary btn-lg btn-block" href="/booking">Book This Package</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {faqs && faqs.length > 0 && (
+    <section class="section section--tint">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Good to Know</p>
+          <h2>Frequently Asked Questions</h2>
+        </header>
+        <div class="accordion">
+          {faqs.map((f) => (
+            <details class="acc-item">
+              <summary class="acc-head">
+                {f.q}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+              </summary>
+              <div class="acc-body__inner"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-banner">
+        <img src={image('hero_guiding').src} alt="" aria-hidden="true" />
+        <h2>Your Waves Are Waiting</h2>
+        <p>Secure your spot with a free cancellation window. Airport pickup from Agadir included.</p>
+        <a class="btn btn-primary btn-lg" href="/booking">Book Now</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

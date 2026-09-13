@@ -1,0 +1,398 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { packages, rooms, restaurant, shop, activities, heroOffers, image } from '../data/loaders';
+
+const featuredRooms = rooms.slice(0, 4);
+const instaImages = ['hero_guiding', 'package2', 'rooftop_yoga', 'food_rooftop_dining'];
+
+const testimonials = [
+  {
+    quote:
+      'An unforgettable week! The coaches were incredible and patient, the food was amazing, and I met so many great people. I finally stood up on the board!',
+    name: 'Anna Kowalska',
+    location: 'Kraków, Poland',
+    initial: 'A',
+  },
+  {
+    quote:
+      "Best surf trip I've ever had. Younes and the team know all the secret spots. The vibe at the surf house is super chill. Can't wait to come back.",
+    name: 'Ben Schmidt',
+    location: 'Berlin, Germany',
+    initial: 'B',
+  },
+  {
+    quote:
+      'The Surf & Yoga package was the perfect reset. Waking up for sunrise yoga on the roof, surfing all day, and eating healthy food... pure bliss.',
+    name: 'Chloé Dubois',
+    location: 'Paris, France',
+    initial: 'C',
+  },
+];
+---
+
+<BaseLayout
+  title="Surf Camp Taghazout Morocco - All-Inclusive Surf Packages"
+  description="All-inclusive surf camp at Mouja Taghazout in Taghazout, Morocco. Beach front surf and yoga camp with ISA-certified coaching, beachfront rooms, restaurant and surf shop."
+  canonical="/"
+  bodyClass="page-home"
+>
+  <!-- HERO -->
+  <section class="hero" data-hero aria-label="Featured offers">
+    {
+      heroOffers.map((h, i) => (
+        <div class="hero__slide" data-slide data-active={i === 0 ? 'true' : 'false'} aria-hidden={i === 0 ? 'false' : 'true'}>
+          <img
+            src={image(h.imageId).src}
+            alt={image(h.imageId).alt}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchpriority={i === 0 ? 'high' : 'auto'}
+          />
+          <div class="hero__content">
+            <p class="eyebrow">Taghazout Bay, Morocco</p>
+            {i === 0 ? <h1>{h.title}</h1> : <h2 class="hero__heading">{h.title}</h2>}
+            <p>{h.description}</p>
+            <span class="hero__price">{h.price}</span>
+            <div class="hero__cta">
+              <a class="btn btn-primary btn-lg btn-arrow" href={h.buttonLink}>{h.buttonLabel}</a>
+              <a class="btn btn-outline btn-lg" href="/booking">Book Your Trip</a>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+    <div class="hero__dots" role="group" aria-label="Slide navigation">
+      {
+        heroOffers.map((_, i) => (
+          <button
+            type="button"
+            data-dot
+            data-index={i}
+            data-active={i === 0 ? 'true' : 'false'}
+            aria-label={`Go to slide ${i + 1}`}
+          ></button>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- USP -->
+  <section class="usp-strip" aria-label="Why surf with us">
+    <div class="container">
+      <div class="usp-grid">
+        <div class="usp-item">
+          <h3>ISA-Certified Surf Coaching</h3>
+          <p>Learn from patient, ISA-certified instructors with deep local knowledge of the waves.</p>
+        </div>
+        <div class="usp-item">
+          <h3>Prime Beachfront Location</h3>
+          <p>Stay steps from the ocean in our authentic beachfront surf camp, with rooftop sea views.</p>
+        </div>
+        <div class="usp-item">
+          <h3>Authentic Moroccan Cuisine</h3>
+          <p>Fuel your sessions with fresh, home-cooked meals prepared daily from local ingredients.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="section" data-reveal>
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Our Packages</p>
+        <h2>All-Inclusive Stays for Every Type of Surfer</h2>
+        <p>Your adventure starts here. Find the perfect surf week for your level, budget and travel dates.</p>
+      </header>
+      <div class="package-grid">
+        {
+          packages.map((p) => (
+            <article class="package-card">
+              <div class="package-card__media">
+                <img
+                  src={image(p.imageId).src}
+                  alt={image(p.imageId).alt}
+                  width="640"
+                  height="480"
+                  loading="lazy"
+                />
+                {p.popular && <span class="badge badge-accent-2 package-card__badge">Most Popular</span>}
+              </div>
+              <div class="package-card__body">
+                <h3>{p.shortName}</h3>
+                <p class="package-card__meta">{p.duration}{p.isForTwo ? ' · for two' : ''}</p>
+                <p class="package-card__desc">{p.description.split('\n\n')[0]}</p>
+                <div class="package-card__foot">
+                  <div class="package-card__price">
+                    {p.price}
+                    <small>per person</small>
+                  </div>
+                  <a class="btn btn-primary btn-sm" href={`/packages/${p.id}`}>View Details</a>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOMS -->
+  <section class="section section--tint" data-reveal>
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Accommodation</p>
+        <h2>Your Home in Taghazout</h2>
+        <p>Comfortable, clean, and social — our surf house is the perfect base for your Moroccan adventure.</p>
+      </header>
+      <div class="room-grid">
+        {
+          featuredRooms.map((r) => (
+            <article class="room-card">
+              <div class="room-card__media">
+                <img
+                  src={image(r.imageId).src}
+                  alt={image(r.imageId).alt}
+                  width="640"
+                  height="480"
+                  loading="lazy"
+                />
+              </div>
+              <div class="room-card__body">
+                <h4>{r.name}</h4>
+                <p class="room-card__sub">{r.subtitle}</p>
+                <p class="room-card__price">
+                  {r.upgradePrice === 0 ? 'Included in all packages' : `+€${r.upgradePrice} / week`}
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <div class="center">
+        <a class="btn btn-primary btn-lg" href="/accommodation">Explore Rooms &amp; Amenities</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESTAURANT -->
+  <section class="section" data-reveal>
+    <div class="container">
+      <div class="feature-row">
+        <div class="feature-row__media">
+          <img
+            src={image('food_tagine').src}
+            alt={image('food_tagine').alt}
+            width="960"
+            height="720"
+            loading="lazy"
+          />
+        </div>
+        <div class="feature-row__body">
+          <span class="badge badge-primary">Our Kitchen</span>
+          <h2>Fuel Your Surf</h2>
+          <p>{restaurant.description}</p>
+          <ul class="checks">
+            {
+              restaurant.menuHighlights.slice(0, 2).map((m) => (
+                <li>{m.name} — {m.description}</li>
+              ))
+            }
+          </ul>
+          <div class="feature-row__cta">
+            <a class="btn btn-primary" href="/restaurant">Explore Our Kitchen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURF SHOP -->
+  <section class="section section--tint" data-reveal>
+    <div class="container">
+      <div class="feature-row feature-row--flip">
+        <div class="feature-row__media">
+          <img
+            src={image('shop_tee').src}
+            alt={image('shop_tee').alt}
+            width="960"
+            height="720"
+            loading="lazy"
+          />
+        </div>
+        <div class="feature-row__body">
+          <span class="badge badge-primary">Surf Shop</span>
+          <h2>The Mouja Taghazout Surf Shop</h2>
+          <p>{shop.description}</p>
+          <ul class="checks">
+            {
+              shop.offerings.slice(0, 2).map((o) => (
+                <li>{o.title} — {o.description}</li>
+              ))
+            }
+          </ul>
+          <div class="feature-row__cta">
+            <a class="btn btn-primary" href="/surf-shop">Visit The Shop</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section class="section" data-reveal>
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Beyond the Waves</p>
+        <h2>Day Trips &amp; Excursions</h2>
+        <p>The adventure doesn't stop at the shoreline. Explore the Taghazout region with our curated day trips.</p>
+      </header>
+      <div class="activity-grid">
+        {
+          activities.map((a) => (
+            <a href={`/activities#${a.slug}`} class="activity-card">
+              <img src={image(a.imageId).src} alt={image(a.imageId).alt} loading="lazy" />
+              <div class="activity-card__body">
+                <span class="activity-card__tag">Day Trip</span>
+                <h3>{a.shortName}</h3>
+                <p>{a.description}</p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+      <div class="center">
+        <a class="btn btn-outline btn-lg" href="/activities">View All Activities</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section section--tint" data-reveal>
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">What Our Guests Say</p>
+        <h2>Real Stories From the Waves</h2>
+      </header>
+      <div class="grid-3">
+        {
+          testimonials.map((t) => (
+            <article class="testimonial-card">
+              <div class="testimonial-card__stars" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8-6.1-3.5-6.1 3.5 1.4-6.8L2.2 9.1l6.9-.8z" /></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8-6.1-3.5-6.1 3.5 1.4-6.8L2.2 9.1l6.9-.8z" /></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8-6.1-3.5-6.1 3.5 1.4-6.8L2.2 9.1l6.9-.8z" /></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8-6.1-3.5-6.1 3.5 1.4-6.8L2.2 9.1l6.9-.8z" /></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8-6.1-3.5-6.1 3.5 1.4-6.8L2.2 9.1l6.9-.8z" /></svg>
+              </div>
+              <blockquote>"{t.quote}"</blockquote>
+              <div class="testimonial-card__author">
+                <span class="testimonial-card__avatar" aria-hidden="true">{t.initial}</span>
+                <div>
+                  <b>{t.name}</b>
+                  <span>{t.location}</span>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section class="section" data-reveal>
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Follow Our Adventures</p>
+        <h2>@taghazoutsurfnomads</h2>
+        <p>Daily waves, rooftop sunsets and life at camp. Follow along on Instagram.</p>
+      </header>
+      <div class="insta-grid">
+        {
+          instaImages.map((id) => (
+            <a
+              href="https://www.instagram.com/taghazoutsurfnomads/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open our Instagram"
+            >
+              <img src={image(id).src} alt={image(id).alt} width="400" height="400" loading="lazy" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section class="section section--tint" data-reveal>
+    <div class="container">
+      <div class="location-card">
+        <img
+          src={image('imsouane_bay').src}
+          alt={image('imsouane_bay').alt}
+          width="1400"
+          height="700"
+          loading="lazy"
+        />
+        <div class="location-card__body">
+          <h3>Find Us in Taghazout</h3>
+          <p>We're located in the heart of Morocco's surf paradise, just steps from world-famous breaks.</p>
+          <a
+            class="btn btn-accent btn-lg"
+            href="https://maps.app.goo.gl/d33raUjFUuB4jK6L9"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Get Directions on Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band" data-reveal>
+    <div class="container">
+      <h2>Ready to Chase the Waves?</h2>
+      <p>Join us in Taghazout for your all-inclusive surf week. Airport pickup from Agadir included.</p>
+      <a class="btn btn-lg" href="/booking">Book Your Trip</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  if (hero) {
+    const slides = Array.from(hero.querySelectorAll<HTMLElement>('[data-slide]'));
+    const dots = Array.from(hero.querySelectorAll<HTMLButtonElement>('[data-dot]'));
+    let current = 0;
+    let timer: number | undefined;
+
+    const show = (i: number) => {
+      current = (i + slides.length) % slides.length;
+      slides.forEach((s, idx) => {
+        s.setAttribute('data-active', idx === current ? 'true' : 'false');
+        s.setAttribute('aria-hidden', idx === current ? 'false' : 'true');
+      });
+      dots.forEach((d, idx) => d.setAttribute('data-active', idx === current ? 'true' : 'false'));
+    };
+
+    const play = () => {
+      window.clearInterval(timer);
+      timer = window.setInterval(() => show(current + 1), 6000);
+    };
+
+    dots.forEach((d) =>
+      d.addEventListener('click', () => {
+        show(Number(d.dataset.index));
+        play();
+      }),
+    );
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduced && slides.length > 1) {
+      play();
+    }
+  }
+</script>

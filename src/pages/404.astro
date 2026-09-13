@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found | MOUJA TAGHAZOUT"
+  description="The page you are looking for could not be found. Head back to the MOUJA TAGHAZOUT homepage."
+  canonical="/404"
+  noindex
+  bodyClass="page-not-found"
+>
+  <section class="section">
+    <div class="container container-narrow page-404">
+      <p class="eyebrow">404</p>
+      <h1>Lost at Sea</h1>
+      <p class="page-404__intro">
+        The page you're looking for has drifted away. Let's get you back to shore.
+      </p>
+      <div class="page-404__actions">
+        <a class="btn btn-primary btn-lg" href="/">Back to Home</a>
+        <a class="btn btn-outline btn-lg" href="/packages">Browse Packages</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

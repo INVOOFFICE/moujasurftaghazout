@@ -1,0 +1,173 @@
+---
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { SITE, image } from '../data/loaders';
+import {
+  organizationNode,
+  websiteNode,
+  webPageNode,
+  breadcrumbListNode,
+  type GraphNode,
+} from '../lib/seo/schema';
+
+import '../styles/tokens.css';
+import '../styles/components.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  noindex?: boolean;
+  bodyClass?: string;
+  schema?: GraphNode[];
+  breadcrumb?: string[];
+  mainEntity?: string;
+}
+
+const {
+  title,
+  description,
+  canonical = '/',
+  ogType = 'website',
+  ogImage = image('hero_coaching').src,
+  noindex = false,
+  bodyClass = '',
+  schema = [],
+  breadcrumb = [],
+  mainEntity,
+} = Astro.props;
+
+const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+const canonicalUrl = new URL(canonical, SITE.url).href;
+const ogUrl = canonicalUrl;
+const ogDescription = description;
+const ogImageUrl = new URL(ogImage, SITE.url).href;
+
+const breadcrumbItems = (() => {
+  const segments = new URL(canonicalUrl).pathname.split('/').filter(Boolean);
+  if (!breadcrumb.length || breadcrumb.length !== segments.length) return null;
+  const items = [{ name: 'Home', url: `${SITE.url}/` }];
+  breadcrumb.forEach((label, i) => {
+    items.push({
+      name: label,
+      url: `${SITE.url}/${segments.slice(0, i + 1).join('/')}`,
+    });
+  });
+  return items;
+})();
+
+const graphJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    organizationNode(),
+    websiteNode(),
+    webPageNode({
+      url: canonicalUrl,
+      name: fullTitle,
+      description,
+      mainEntity,
+    }),
+    ...(breadcrumbItems ? [breadcrumbListNode(canonicalUrl, breadcrumbItems)] : []),
+    ...schema,
+  ],
+});
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={ogDescription} />
+    {
+      noindex && (
+        <meta name="robots" content="noindex, nofollow" />
+      )
+    }
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={ogUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/playfair-latin-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/fraunces-latin-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <script is:inline>
+      (function () {
+        document.documentElement.classList.add('js');
+      })();
+    </script>
+
+    <script is:inline type="application/ld+json" set:html={graphJsonLd} />
+  </head>
+  <body class:list={bodyClass ? [bodyClass] : []}>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+
+    <script is:inline>
+      (function () {
+        var els = document.querySelectorAll('[data-reveal]');
+        if (!els.length) return;
+        if (!('IntersectionObserver' in window)) {
+          els.forEach(function (el) {
+            el.classList.add('is-in');
+          });
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
+        );
+        els.forEach(function (el) {
+          io.observe(el);
+        });
+      })();
+    </script>
+  </body>
+</html>

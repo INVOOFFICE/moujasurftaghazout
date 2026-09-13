@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, activities, image } from '../data/loaders';
+import { serviceNode } from '../lib/seo/schema';
+
+const pageUrl = new URL('/activities', SITE.url).href;
+
+const intro = "The adventure doesn't stop at the shoreline. Discover the magic of the Taghazout region with our curated day trips.";
+const hero = image('imsouane_bay');
+---
+<BaseLayout
+  title="Morocco Excursions & Activities | Day Trips from Taghazout"
+  description="Day trips from Taghazout: Imsouane surf day trip, Paradise Valley oasis hike and sunset sandboarding in Tamri. Curated Moroccan excursions with transport and lunch included."
+  canonical="/activities"
+  bodyClass="page-activities"
+  schema={[
+    serviceNode({
+      id: `${pageUrl}#service`,
+      name: 'Activities & Excursions from Taghazout',
+      description:
+        'Curated day trips from Taghazout: Imsouane surf day trip, Paradise Valley oasis hike and sunset sandboarding in Tamri, with transport and lunch included.',
+      url: pageUrl,
+      serviceType: 'Day Trips & Excursions',
+    }),
+  ]}
+  mainEntity={`${pageUrl}#service`}
+  breadcrumb={['Activities']}
+>
+  <section class="detail-hero">
+    <img src={hero.src} alt={hero.alt} />
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><span>Activities</span>
+      </nav>
+      <h1>Activities &amp; Excursions</h1>
+      <p>{intro}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {activities.map((a, i) => (
+        <article id={a.slug} class:list={['feature-row', i % 2 === 1 && 'feature-row--flip']}>
+          <div class="feature-row__media">
+            <img
+              src={image(a.imageId).src}
+              alt={image(a.imageId).alt}
+              width="960"
+              height="720"
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+          </div>
+          <div class="feature-row__body">
+            <span class="badge badge-primary">Day Trip</span>
+            <h2>{a.title}</h2>
+            <p>{a.description}</p>
+            <ul class="checks">
+              {a.inclusions.map((inc) => (
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  {inc.text}
+                </li>
+              ))}
+            </ul>
+            <div class="feature-row__cta">
+              <a class="btn btn-primary" href="/booking">Book This Trip</a>
+            </div>
+          </div>
+        </article>
+      ))}
+      <div class="center">
+        <a class="btn btn-outline" href="/packages">Explore Surf Packages</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="cta-banner">
+        <img src={hero.src} alt="" aria-hidden="true" />
+        <h2>More Than Just Surfing</h2>
+        <p>Combine your surf week with a day in the Atlas foothills or golden dunes. Every excursion is guided, includes transport and lunch, and is arranged from the camp.</p>
+        <a class="btn btn-primary btn-lg" href="/booking">Plan Your Stay</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

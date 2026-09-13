@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const story = [
+  { eyebrow: 'Our Story', title: 'Born on the Waves of Taghazout', body: 'Mouja Taghazout was born from a simple idea: to create a surf experience in Morocco that feels like coming home. Since 2017 we have been riding the waves of Taghazout Bay, and after a short break for renovations we are back with a new season and the same heart. Our founder, Younes, grew up with the sand of Taghazout between his toes and the rhythm of the Atlantic in his heart. He wanted to share the magic of its waves and the warmth of Moroccan hospitality, creating not just a surf camp, but a community where guests arrive as strangers and leave as family.', img: 'beachfront' },
+  { eyebrow: 'Our Mission', title: 'More Than a Surf Camp', body: 'We gathered a team of passionate, ISA-certified local surfers and yoga instructors who do not just teach - they share a lifestyle. We are a tight-knit crew, united by our love for the ocean and our dedication to providing an authentic, safe, and unforgettable experience. When you stay with us, you are not just a client; you become part of our story.', img: 'team' },
+];
+
+const values = [
+  { icon: 'link', title: 'Authentic Connections', body: 'We believe in progress, not perfection, and in building a community connected by a shared love for the ocean. Our goal is to provide world-class surf coaching in a safe, fun, and supportive environment while immersing our guests in the rich culture of Morocco. It is about the smiles, the high-fives, and the shared stories after a long day in the water.' },
+  { icon: 'homes', title: 'Genuine Moroccan Experience', body: 'From the home-cooked tagines served family-style on our rooftop to the design of our beachfront surf house, we offer a genuine taste of Moroccan culture and hospitality that you will not find in a large, impersonal hotel. It is an experience that is both exhilarating and grounding, vibrant and serene.' },
+  { icon: 'tune', title: 'Personalized Progression', body: 'We keep our coaching groups small for a reason. It allows us to provide you with personalized feedback and individual attention. We get to know your goals, your fears, and your strengths. Whether you want to stand up for the first time or master a cutback, we are in the water with you, celebrating every single victory.' },
+];
+
+const team = [
+  { initials: 'YA', name: 'Younes A.', role: 'Founder & Head Coach', bio: 'Grew up on the waves of Taghazout and founded Mouja Taghazout to share his passion for surfing and Moroccan culture.', img: 'younes' },
+  { initials: 'KS', name: 'Khadija S.', role: 'Camp Manager', bio: 'Khadija ensures everything runs smoothly. Her warm personality and sharp surfing skills make her a camp favorite.', img: 'khadija' },
+  { initials: 'IM', name: 'Isla M.', role: 'Yoga & Wellness', bio: 'Isla combines her love for yoga and the sea to create rejuvenating experiences that balance body and mind.', img: 'isla' },
+];
+---
+<BaseLayout
+  title="About MOUJA TAGHAZOUT | Our Story, Mission & Team in Taghazout"
+  description="The story, mission and team behind MOUJA TAGHAZOUT - a beach front surf and yoga camp where guests arrive as strangers and leave as family. ISA-certified surf coaching, yoga and authentic Moroccan hospitality."
+  canonical="/about"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">About Us</p>
+      <h1>Our Story</h1>
+      <p class="lead">From a shared passion for waves to a home for surfers from around the world. A passionate, ISA-certified local crew dedicated to sharing the magic of Morocco.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {story.map((s) => (
+        <article class="story-block">
+          <div class="story-text">
+            <p class="eyebrow">{s.eyebrow}</p>
+            <h2>{s.title}</h2>
+            <p>{s.body}</p>
+          </div>
+        </article>
+      ))}
+      <blockquote class="pull-quote">
+        <p>Guests arrive as strangers and leave as family.</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Our Values</p>
+        <h2>What Drives the Nomad Waves</h2>
+      </header>
+      <div class="grid grid-3">
+        {values.map((v) => (
+          <article class="value-card">
+            <span class="value-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12c3-3 5-3 8 0s5 3 8 0" />
+                <path d="M3 8c3-3 5-3 8 0s5 3 8 0" />
+                <path d="M3 16c3-3 5-3 8 0s5 3 8 0" />
+              </svg>
+            </span>
+            <h3>{v.title}</h3>
+            <p>{v.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Meet the Team</p>
+        <h2>The Humans Behind the Waves</h2>
+      </header>
+      <div class="grid grid-3">
+        {team.map((m) => (
+          <article class="team-card">
+            <div class="team-avatar" aria-hidden="true">{m.initials}</div>
+            <h3>{m.name}</h3>
+            <p class="team-role">{m.role}</p>
+            <p>{m.bio}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container">
+      <h2>Join the Tribe</h2>
+      <p>Your board is waiting. Ready to be part of the story? Your Moroccan surf adventure awaits.</p>
+      <a href="/booking" class="btn btn-primary btn-lg">Start Your Adventure</a>
+    </div>
+  </section>
+</BaseLayout>

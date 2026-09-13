@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/loaders';
+---
+<BaseLayout
+  title="Company Information | MOUJA TAGHAZOUT"
+  description="Legal notice and company information for MOUJA TAGHAZOUT S.A.R.L, a beach front surf and yoga camp in Taghazout, Morocco."
+  canonical="/company"
+  noindex
+  bodyClass="page-legal"
+  breadcrumb={['Company']}
+>
+  <section class="detail-hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><span>Company</span>
+      </nav>
+      <h1>Company Information</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container-narrow prose">
+      <h2>Legal Notice (Imprint)</h2>
+      <ul class="dot-list">
+        <li>Company Name: MOUJA TAGHAZOUT S.A.R.L</li>
+        <li>Address: {SITE.address}</li>
+        <li>Phone: {SITE.phone}</li>
+        <li>Email: {SITE.email}</li>
+      </ul>
+      <ul class="dot-list">
+        <li>Managing Director: Younes A.</li>
+        <li>Company Registration Number: 123456789</li>
+        <li>VAT ID: MA123456789</li>
+      </ul>
+
+      <h2>Disclaimer</h2>
+      <p>The contents of our pages have been created with the utmost care. However, we cannot guarantee the contents' accuracy, completeness or topicality. According to statutory provisions, we are furthermore responsible for our own content on these web pages. In this matter, please note that we are not obliged to monitor the transmitted or saved information of third parties, or investigate circumstances pointing to illegal activity.</p>
+    </div>
+  </section>
+</BaseLayout>

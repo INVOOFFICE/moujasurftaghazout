@@ -1,0 +1,342 @@
+/* ------------------------------------------------------------------ */
+/* MOUJA TAGHAZOUT — Design tokens & base                              */
+/* Premium Surf Retreat / Coastal Hospitality                          */
+/* Palette: Atlantic Ocean · Moroccan sand · warm neutrals             */
+/* ------------------------------------------------------------------ */
+
+/* ---- Variable fonts (Inter body / Playfair Display headline) ----- */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-ext-a-var.woff2') format('woff2');
+  unicode-range: u+0100-02ba, u+02bd-02c5, u+02c7-02cc, u+02ce-02d7, u+02dd-02ff;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-ext-b-var.woff2') format('woff2');
+  unicode-range: u+0304, u+0308, u+0329, u+1d00-1dbf, u+1e00-1e9f, u+1ef2-1eff, u+2020,
+    u+20a0-20ab, u+20ad-20c0, u+2113, u+2c60-2c7f, u+a720-a7ff;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-var.woff2') format('woff2');
+  unicode-range: u+0000-00ff, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f,
+    u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/playfair-latin-ext-a-var.woff2') format('woff2');
+  unicode-range: u+0100-02ba, u+02bd-02c5, u+02c7-02cc, u+02ce-02d7, u+02dd-02ff;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/playfair-latin-ext-b-var.woff2') format('woff2');
+  unicode-range: u+0304, u+0308, u+0329, u+1d00-1dbf, u+1e00-1e9f, u+1ef2-1eff, u+2020,
+    u+20a0-20ab, u+20ad-20c0, u+2113, u+2c60-2c7f, u+a720-a7ff;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/playfair-latin-var.woff2') format('woff2');
+  unicode-range: u+0000-00ff, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f,
+    u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/fraunces-latin-var.woff2') format('woff2');
+  unicode-range: u+0000-00ff, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f,
+    u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
+}
+
+/* ---- Tokens ---- */
+:root {
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-hero: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-ui: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Type scale — fluid at the top, static below */
+  --text-md: 1rem;
+  --text-hero: clamp(2.1rem, 5.6vw, 4rem);
+  --text-h1: clamp(1.875rem, 4.8vw, 3.9rem);
+  --text-h2: clamp(1.75rem, 3.3vw, 2.7rem);
+  --text-h3: 1.4rem;
+  --text-h4: 1.1rem;
+
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.6;
+
+  --tracking-tight: -0.01em;
+  --tracking-wide: 0.045em;
+  --tracking-wider: 0.14em;
+  --tracking-eyebrow: 0.2em;
+
+  /* Surfaces */
+  --background: 42 42% 96%;
+  --foreground: 204 34% 16%;
+  --card: 42 50% 100%;
+  --card-foreground: 204 34% 16%;
+  --muted: 42 30% 90%;
+  --muted-foreground: 204 12% 40%;
+  --border: 42 26% 84%;
+  --input: 42 26% 84%;
+
+  /* Brand — Atlantic Ocean */
+  --primary: 199 62% 31%;
+  --primary-hover: 199 64% 26%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 199 60% 94%;
+  --secondary-foreground: 199 62% 24%;
+
+  /* Accents — Moroccan sand · sunset · seaglass */
+  --accent: 34 82% 50%;
+  --accent-hover: 34 82% 44%;
+  --accent-foreground: 30 70% 15%;
+  --accent-2: 15 74% 52%;
+  --accent-2-strong: 15 62% 34%;
+  --accent-3: 172 45% 32%;
+
+  --ring: 197 75% 45%;
+
+  /* Radii — refined, editorial (avoid generic pill/bubble cards) */
+  --radius: 0.375rem;
+  --radius-sm: 0.25rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.9rem;
+  --radius-pill: 999px;
+
+  /* Shadows — layered, soft, premium */
+  --shadow-soft: 0 2px 14px -6px hsl(var(--foreground) / 0.1);
+  --shadow-card: 0 18px 44px -20px hsl(var(--foreground) / 0.24);
+  --shadow-focus: 0 0 0 3px hsl(var(--ring) / 0.28);
+
+  /* Section rhythm */
+  --section-y: 4.5rem;
+  --section-y-lg: 6.5rem;
+  --container: 1400px;
+  --container-gutter: 1.25rem;
+  --container-gutter-lg: 2rem;
+
+  /* Header */
+  --header-h: 72px;
+
+  /* Footer — always a deep Atlantic ink surface */
+  --footer-bg: 204 30% 10%;
+  --footer-fg: 40 33% 88%;
+  --footer-link: 40 33% 78%;
+  --footer-link-hover: 0 0% 100%;
+  --footer-muted: 40 20% 62%;
+  --footer-border: 40 20% 22%;
+  --footer-heading: 40 25% 78%;
+  --footer-social-border: 40 20% 28%;
+  --footer-social-fg: 40 20% 70%;
+
+  /* Photo-scrim ink — constant so image text stays readable */
+  --scrim: 204 32% 10%;
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---- Base ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  line-height: var(--line-height-normal);
+  font-size: 1rem;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  tab-size: 4;
+  font-family: var(--font-body);
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 12px);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
+  color: hsl(var(--foreground));
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--text-h1);
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--line-height-tight);
+}
+h2 {
+  font-size: var(--text-h2);
+  font-weight: 650;
+}
+h3 {
+  font-size: var(--text-h3);
+  font-weight: 650;
+}
+h4 {
+  font-size: var(--text-h4);
+  font-weight: var(--font-weight-semibold);
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+picture,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: hsl(var(--accent) / 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* ---- Utilities ---- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--container-gutter);
+}
+.container-narrow {
+  max-width: 780px;
+}
+@media (min-width: 768px) {
+  .container {
+    padding-inline: var(--container-gutter-lg);
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -100%;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-radius: var(--radius);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--shadow-card);
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+.prose > * + * {
+  margin-block-start: 1.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

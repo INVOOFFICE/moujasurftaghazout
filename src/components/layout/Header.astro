@@ -1,0 +1,212 @@
+---
+import { nav, megamenu, SITE, image } from '../../data/loaders';
+
+const dropItems = (label: string) => megamenu.find((m) => m.label === label)?.items ?? [];
+const hasDrop = (label: string) => dropItems(label).length > 0;
+const linkFor = (n: { label: string }) => {
+  const m = megamenu.find((m) => m.label === n.label && m.type === 'link');
+  return m?.href ?? '/';
+};
+const megaVariant = (label: string) => {
+  const visual = dropItems(label).filter((it) => 'imageId' in it && it.imageId).length;
+  return visual > 0 ? 'mega--grid' : 'mega--list';
+};
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
+const isCurrent = (href: string) =>
+  href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
+const isGroupCurrent = (label: string) =>
+  dropItems(label).some((it) => 'href' in it && it.href && isCurrent(it.href));
+const current = (label: string, href: string) => isCurrent(href) || isGroupCurrent(label);
+---
+
+<header class="site-head">
+  <div class="container nav-wrap">
+    <a href="/" class="brand" aria-label={`${SITE.name} — home`}>
+      <img class="brand-logo" src="/logo1.png" alt="" width="42" height="42" loading="eager" />
+      <span class="brand-word">MOUJA TAGHAZOUT<small>Beach Front Surf &amp; Yoga Camp</small></span>
+    </a>
+
+    <nav class="nav" aria-label="Main navigation">
+      {
+        nav.map((n) => {
+          const isDrop = hasDrop(n.label);
+          const href = n.href ?? linkFor(n);
+          return (
+            <div class:list={['nav-item']}>
+              <a href={href} class="nav-link" aria-current={current(n.label, href) ? 'page' : undefined}>
+                {n.label}
+                {
+                  isDrop && (
+                    <svg
+                      class="caret"
+                      viewBox="0 0 24 24"
+                      width="12"
+                      height="12"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 9l6 6 6-6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  )
+                }
+              </a>
+              {
+                isDrop && (
+                  <div class:list={['mega', megaVariant(n.label)]}>
+                    <div class="mega-inner">
+                      {dropItems(n.label).map((it) =>
+                        'isSeparator' in it && it.isSeparator ? (
+                          <span class="mega-sep" role="separator" />
+                        ) : (
+                          <a href={'href' in it && it.href ? it.href : '/'} class="mega-link">
+                            {
+                              'imageId' in it && it.imageId && (
+                                <img
+                                  src={image(it.imageId).src}
+                                  alt=""
+                                  width="46"
+                                  height="46"
+                                  loading="lazy"
+                                />
+                              )
+                            }
+                            <span>{it.title ?? ''}</span>
+                          </a>
+                        ),
+                      )}
+                    </div>
+                  </div>
+                )
+              }
+            </div>
+          );
+        })
+      }
+      <a class="btn btn-primary nav-cta" href="/booking">Book Now</a>
+    </nav>
+
+    <div class="nav-tools">
+      <button
+        class="burger"
+        type="button"
+        data-burger
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<aside class="drawer" id="mobile-drawer" data-drawer aria-hidden="true" inert>
+  <div class="drawer-head">
+    <span class="brand-word">MOUJA TAGHAZOUT<small>Beach Front Surf &amp; Yoga Camp</small></span>
+    <button class="drawer-close" type="button" data-drawer-close aria-label="Close menu">
+      &times;
+    </button>
+  </div>
+  <nav class="drawer-nav" aria-label="Mobile navigation">
+    {
+      nav.map((n) => {
+        const isDrop = hasDrop(n.label);
+        const href = n.href ?? linkFor(n);
+        return (
+          <div class="drawer-group">
+            <a class="drawer-title" href={href} aria-current={current(n.label, href) ? 'page' : undefined}>{n.label}</a>
+            {
+              isDrop && (
+                <ul>
+                  {dropItems(n.label).map((it) =>
+                    !('isSeparator' in it && it.isSeparator) ? (
+                      <li>
+                        <a href={'href' in it && it.href ? it.href : '/'}>
+                          {it.title ?? ''}
+                        </a>
+                      </li>
+                    ) : null,
+                  )}
+                </ul>
+              )
+            }
+          </div>
+        );
+      })
+    }
+    <a class="btn btn-primary btn-block" href="/booking">Book Now</a>
+  </nav>
+</aside>
+
+<div class="scrim" data-scrim aria-hidden="true"></div>
+
+<script>
+  const burger = document.querySelector<HTMLButtonElement>('[data-burger]');
+  const drawer = document.querySelector<HTMLElement>('[data-drawer]');
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-drawer-close]');
+  const scrim = document.querySelector<HTMLElement>('[data-scrim]');
+
+  const open = () => {
+    drawer?.removeAttribute('inert');
+    drawer?.setAttribute('data-open', 'true');
+    drawer?.setAttribute('aria-hidden', 'false');
+    scrim?.setAttribute('data-open', 'true');
+    burger?.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('no-scroll');
+    closeBtn?.focus();
+  };
+
+  const close = () => {
+    drawer?.setAttribute('inert', '');
+    drawer?.setAttribute('data-open', 'false');
+    drawer?.setAttribute('aria-hidden', 'true');
+    scrim?.setAttribute('data-open', 'false');
+    burger?.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('no-scroll');
+    burger?.focus();
+  };
+
+  burger?.addEventListener('click', () => {
+    drawer?.getAttribute('data-open') === 'true' ? close() : open();
+  });
+  closeBtn?.addEventListener('click', close);
+  scrim?.addEventListener('click', close);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer?.getAttribute('data-open') === 'true') {
+      close();
+    }
+  });
+
+  drawer?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusables = drawer.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled])',
+    );
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
+  const headEl = document.querySelector<HTMLElement>('.site-head');
+  if (headEl) {
+    const onScroll = () => {
+      headEl.setAttribute('data-solid', window.scrollY > 8 ? 'true' : 'false');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+  }
+</script>

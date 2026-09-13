@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, image } from '../data/loaders';
+import { serviceNode } from '../lib/seo/schema';
+
+const pageUrl = new URL('/surf-yoga', SITE.url).href;
+
+const benefits = [
+  { title: 'Improve Flexibility & Prevent Injury', body: 'Yoga targets the specific muscle groups used in surfing, releasing tension in your shoulders, back, and hips. This increases your range of motion and helps prevent common surf-related injuries.' },
+  { title: 'Enhance Balance & Core Strength', body: 'Build the stability and core power that are essential for everything from your pop-up to powerful turns on the wave face. A strong core is the foundation of good surfing.' },
+  { title: 'Master Your Breath, Master Your Mind', body: 'Learn pranayama (breathing techniques) to increase lung capacity, stay calm during hold-downs, and conserve energy in the water. A calm mind makes for a better surfer.' },
+];
+
+const sessions = [
+  { title: 'Morning: Energizing Vinyasa Flow', body: 'An energizing session on our stunning ocean-view rooftop terrace to awaken the body, warm up your muscles, and set your intention for the day ahead.' },
+  { title: 'Evening: Restorative / Yin Yoga', body: 'A gentle, deep-stretching class to restore your body after a day in the ocean. We focus on releasing muscle soreness and calming the nervous system for a restful night sleep.' },
+];
+
+const hero = image('hero_yoga');
+---
+<BaseLayout
+  title="Surf & Yoga Retreats in Taghazout, Morocco | MOUJA TAGHAZOUT"
+  description="Surf and yoga retreats in Taghazout, Morocco. Daily surf sessions paired with energizing morning vinyasa and restorative evening yin yoga, plus healthy all-inclusive meals."
+  canonical="/surf-yoga"
+  bodyClass="page-surf-yoga"
+  schema={[
+    serviceNode({
+      id: `${pageUrl}#service`,
+      name: 'Surf & Yoga Retreat',
+      description:
+        'Daily surf sessions paired with energizing morning vinyasa and restorative evening yin yoga, plus healthy all-inclusive meals.',
+      url: pageUrl,
+      serviceType: 'Surf & Yoga Retreat',
+    }),
+  ]}
+  mainEntity={`${pageUrl}#service`}
+  breadcrumb={['Surf & Yoga']}
+>
+  <section class="detail-hero">
+    <img src={hero.src} alt={hero.alt} />
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><span>Surf &amp; Yoga</span>
+      </nav>
+      <h1>Surf &amp; Yoga Retreat</h1>
+      <p>Find your flow in and out of the water. The perfect balance for body, mind, and soul.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="feature-row">
+        <div class="feature-row__media">
+          <img src={image('rooftop_yoga').src} alt={image('rooftop_yoga').alt} width="960" height="720" loading="lazy" />
+        </div>
+        <div class="feature-row__body">
+          <span class="badge badge-primary">The Perfect Combination</span>
+          <h2>The Perfect Combination for Surfers</h2>
+          <p>Surfing and yoga are natural companions. The dynamic, powerful energy of surfing is perfectly balanced by the calming, restorative power of yoga. Our retreat is designed to create a powerful synergy between the two practices, helping you improve your surfing faster while finding a deeper sense of well-being and connection.</p>
+          <div class="feature-row__cta">
+            <a class="btn btn-primary" href="/packages/nomad-zen">View Surf &amp; Yoga Package</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Why It Works</p>
+        <h2>Three Ways Yoga Makes You a Better Surfer</h2>
+      </header>
+      <div class="grid-3">
+        {benefits.map((b) => (
+          <article class="feature-card">
+            <h3>{b.title}</h3>
+            <p>{b.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Your Practice</p>
+        <h2>A Holistic Experience for Mind &amp; Body</h2>
+      </header>
+      <div class="grid-2">
+        {sessions.map((s) => (
+          <article class="feature-card">
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </article>
+        ))}
+      </div>
+      <div class="note">
+        <p>Our Surf &amp; Yoga retreat is more than just an activity package. It is a holistic experience designed to nourish you from the inside out. Alongside daily surf and yoga, you will enjoy three healthy, delicious meals per day, made from fresh local ingredients, with time to relax on our sun-drenched terraces and connect with like-minded people from around the world.</p>
+      </div>
+      <div class="center">
+        <a class="btn btn-primary btn-lg" href="/packages/nomad-zen">Book the Surf &amp; Yoga Retreat</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

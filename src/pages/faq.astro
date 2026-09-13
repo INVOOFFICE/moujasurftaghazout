@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, image } from '../data/loaders';
+import { faqPageNode } from '../lib/seo/schema';
+
+const pageUrl = new URL('/faq', SITE.url).href;
+
+const faqs = [
+  { q: "What's the best time of year to surf in Taghazout?", a: 'The prime surf season for big, clean swells runs from October to April, when powerful Atlantic groundswells light up the legendary point breaks. That said, Taghazout offers rideable waves almost every day of the year. Summer brings smaller, more playful waves that are perfect for beginners and longboarders, with warmer water.' },
+  { q: 'Do I need a visa to travel to Morocco?', a: 'Citizens of many countries can enter Morocco visa-free for up to 90 days. Visa requirements depend on your nationality, so please check with your local Moroccan embassy or consulate before you travel. We recommend having a passport valid for at least six months beyond your stay.' },
+  { q: 'What should I pack?', a: 'Pack light! Bring swimwear, sunscreen (reef-safe is best), sunglasses, a hat, and comfortable clothes. We provide all surf equipment including boards and wetsuits, plus towels. A light jacket for cooler evenings and a reusable water bottle are also a good idea.' },
+  { q: 'Is it safe to travel in Morocco?', a: 'Yes, Morocco is a safe and welcoming travel destination. Our camp is in the laid-back surf village of Taghazout, and we provide airport transfers from Agadir. As with any travel, use common sense and keep an eye on your belongings.' },
+  { q: 'What currency is used in Morocco?', a: 'Morocco uses the Moroccan Dirham (MAD). You can exchange money at the airport, banks, or ATMs in Taghazout. Many local shops and cafes are cash-based, so it is useful to carry some dirhams, though major cards are accepted in many places.' },
+  { q: 'Can you cater to dietary requirements?', a: 'Absolutely. Our kitchen prepares fresh meals daily and is happy to accommodate vegetarian, vegan, gluten-free, and other dietary requirements. Just let us know when you book and we will take care of the rest.' },
+];
+---
+<BaseLayout
+  title="FAQ | Frequently Asked Questions | MOUJA TAGHAZOUT"
+  description="Frequently asked questions about surfing, travel and your stay in Taghazout, Morocco. Best time to surf, visas, packing, currency, dietary requirements and more."
+  canonical="/faq"
+  bodyClass="page-faq"
+  schema={[faqPageNode(`${pageUrl}#faq`, faqs)]}
+  mainEntity={`${pageUrl}#faq`}
+  breadcrumb={['FAQ']}
+>
+  <section class="detail-hero">
+    <img src={image('hero_coaching').src} alt="" aria-hidden="true" />
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><span>FAQ</span>
+      </nav>
+      <h1>Frequently Asked Questions</h1>
+      <p>Your questions, answered. Find info on booking, travel, and your stay in Taghazout.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container-narrow">
+      <div class="accordion">
+        {faqs.map((f) => (
+          <details class="acc-item">
+            <summary class="acc-head">
+              {f.q}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+            </summary>
+            <div class="acc-body__inner"><p>{f.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="cta-banner">
+        <img src={image('hero_guiding').src} alt="" aria-hidden="true" />
+        <h2>Still Have Questions?</h2>
+        <p>Our team is here to help you plan the perfect surf trip. Send us a message with any questions you have.</p>
+        <a class="btn btn-primary btn-lg" href="/booking">Ask a Question</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,943 @@
+{
+ "rooms": [
+  {
+   "id": "shared",
+   "name": "Shared Room",
+   "subtitle": "The most social and budget-friendly option.",
+   "features": [
+    "Single beds in bunk format",
+    "Shared bathroom",
+    "Personal lockers",
+    "Daily cleaning"
+   ],
+   "upgradePrice": 0,
+   "imageId": "accommodation_dorm_1",
+   "icon": "home"
+  },
+  {
+   "id": "twin",
+   "name": "Twin Room",
+   "subtitle": "Ideal for friends traveling together.",
+   "features": [
+    "Two single beds",
+    "Ensuite shared bathroom",
+    "More space and privacy",
+    "Daily cleaning"
+   ],
+   "upgradePrice": 80,
+   "imageId": "accommodation_twin_1",
+   "icon": "home"
+  },
+  {
+   "id": "double",
+   "name": "Double Room",
+   "subtitle": "Perfect for solo travelers or couples.",
+   "features": [
+    "Cozy double bed",
+    "Private bathroom",
+    "Ample storage",
+    "Daily cleaning"
+   ],
+   "upgradePrice": 120,
+   "imageId": "accommodation_private",
+   "icon": "home"
+  },
+  {
+   "id": "double-balcony",
+   "name": "Private Double with Balcony",
+   "subtitle": "Enjoy your own private balcony.",
+   "features": [
+    "Double bed",
+    "Private ensuite bathroom",
+    "Private balcony",
+    "Daily cleaning"
+   ],
+   "upgradePrice": 150,
+   "imageId": "private_double_balcony",
+   "icon": "home"
+  },
+  {
+   "id": "deluxe-private",
+   "name": "Deluxe Private Room",
+   "subtitle": "Our best room with more space and comfort.",
+   "features": [
+    "King-size bed",
+    "Private bathroom",
+    "Private balcony with ocean view",
+    "Workspace available"
+   ],
+   "upgradePrice": 180,
+   "imageId": "deluxe_private_1",
+   "icon": "home"
+  },
+  {
+   "id": "studio",
+   "name": "Studio",
+   "subtitle": "A compact, private space for solo travelers or couples.",
+   "features": [
+    "Kitchenette",
+    "Private bathroom",
+    "Combined living/sleeping area",
+    "Sleeps 1-2 people"
+   ],
+   "upgradePrice": 250,
+   "imageId": "accommodation_studio",
+   "icon": "home"
+  },
+  {
+   "id": "apartment",
+   "name": "Apartment",
+   "subtitle": "A self-contained unit for ultimate privacy.",
+   "features": [
+    "Private kitchenette & living area",
+    "Balcony or terrace",
+    "Ideal for long stays or groups",
+    "Sleeps 2-4 people"
+   ],
+   "upgradePrice": 350,
+   "imageId": "accommodation_apartment",
+   "icon": "home"
+  }
+ ],
+ "packages": [
+  {
+   "id": "starter-surfer",
+   "name": "Taghazout Surf School – Beginner & Intermediate Surf Camp Morocco",
+   "shortName": "Beginner & Intermediate",
+   "description": "This is where your surf journey begins or truly takes off. Our most popular package is designed to build your confidence and skills in a fun, supportive, and safe environment at our beachfront surf camp. We focus on building a strong foundation, from your first paddle to catching your first green waves.\n\nThis package is perfect for complete beginners or those who have tried a few times and want to progress from whitewater to unbroken waves. Our patient, certified instructors will be with you every step of the way, celebrating your progress and sharing the stoke of surfing.",
+   "price": "€499",
+   "basePrice": 499,
+   "duration": "7 Days / 7 Nights",
+   "durationWeeks": 1,
+   "features": [
+    "7 nights accommodation in our social shared rooms",
+    "Daily healthy breakfast & dinner",
+    "5x 2-hour surf lessons with certified instructors",
+    "High-quality surfboard & wetsuit rental for your entire stay",
+    "Transport to the best surf spots of the day",
+    "Free time to practice in the afternoons with supervision",
+    "Photo/video analysis session to track your progress",
+    "Free airport transfer from/to Agadir (AGA)"
+   ],
+   "imageId": "package1",
+   "popular": true,
+   "colorClass": "border-primary",
+   "highlights": [
+    {
+     "icon": "home",
+     "label": "Level",
+     "value": "Beginner & Improver"
+    },
+    {
+     "icon": "home",
+     "label": "Group Size",
+     "value": "Max 6 per coach"
+    },
+    {
+     "icon": "home",
+     "label": "Season",
+     "value": "Year-round"
+    },
+    {
+     "icon": "home",
+     "label": "Stay",
+     "value": "Surf Camp"
+    }
+   ],
+   "schedule": [
+    {
+     "time": "08:00",
+     "activity": "Sunrise Yoga Session (optional)"
+    },
+    {
+     "time": "09:00",
+     "activity": "Hearty surfer's breakfast on the rooftop"
+    },
+    {
+     "time": "10:00",
+     "activity": "Depart for the best surf spot of the day"
+    },
+    {
+     "time": "10:30",
+     "activity": "Morning Surf Lesson / Guided Surf"
+    },
+    {
+     "time": "13:00",
+     "activity": "Packed lunch on the beach"
+    },
+    {
+     "time": "14:30",
+     "activity": "Free surf session to practice your skills"
+    },
+    {
+     "time": "19:00",
+     "activity": "Family-style dinner at the surf house"
+    },
+    {
+     "time": "20:30",
+     "activity": "Photo/video analysis or chill evening"
+    }
+   ],
+   "faqs": [
+    {
+     "q": "Do I need any surfing experience for this package?",
+     "a": "None at all! This package is designed for complete beginners and those who have surfed a few times but want to build a solid foundation."
+    },
+    {
+     "q": "What kind of waves will I be surfing?",
+     "a": "We will take you to gentle beach breaks with sandy bottoms, which are the safest and most fun environments for learning."
+    },
+    {
+     "q": "Is equipment included?",
+     "a": "Yes, a stable, high-volume soft-top surfboard and a comfortable wetsuit are included for the duration of your stay."
+    },
+    {
+     "q": "How fit do I need to be?",
+     "a": "A basic level of fitness and swimming ability is recommended. Surfing is a physical activity, but we tailor the lessons to your pace."
+    }
+   ]
+  },
+  {
+   "id": "wave-warrior",
+   "name": "Taghazout Surf Guiding – Advanced Surf Camp Morocco",
+   "shortName": "Advanced Guiding",
+   "description": "You know how to surf; now it's time to score. This package is for experienced surfers who want to explore the legendary breaks of Taghazout without the guesswork. Our local guides live and breathe these waves and will use their expert knowledge to get you to the right spot at the right time, every time.\n\nForget the crowded main breaks; we'll take you to uncrowded points, reefs, and slabs that match your level. This package is all about maximizing your wave count and experiencing the world-class potential of the Moroccan coastline from the comfort of our beachfront surf camp.",
+   "price": "€650",
+   "basePrice": 650,
+   "duration": "7 Days / 7 Nights",
+   "durationWeeks": 1,
+   "features": [
+    "7 nights accommodation in our social shared rooms",
+    "Daily healthy breakfast & dinner",
+    "5x Guided surf sessions to the best breaks",
+    "Expert local knowledge on tides, winds, and swell",
+    "4x4 transport to spots, including remote locations",
+    "In-depth photo/video analysis to refine your technique",
+    "Excursion to Imsouane, home of Morocco's longest wave",
+    "Free airport transfer from/to Agadir (AGA)"
+   ],
+   "imageId": "package2",
+   "popular": false,
+   "colorClass": "border-accent-2",
+   "highlights": [
+    {
+     "icon": "home",
+     "label": "Level",
+     "value": "Advanced"
+    },
+    {
+     "icon": "home",
+     "label": "Group Size",
+     "value": "Small groups"
+    },
+    {
+     "icon": "home",
+     "label": "Season",
+     "value": "Oct - Apr"
+    },
+    {
+     "icon": "home",
+     "label": "Stay",
+     "value": "Surf Camp"
+    }
+   ],
+   "schedule": [
+    {
+     "time": "08:00",
+     "activity": "Sunrise Yoga Session (optional)"
+    },
+    {
+     "time": "09:00",
+     "activity": "Hearty surfer's breakfast on the rooftop"
+    },
+    {
+     "time": "10:00",
+     "activity": "Depart for the best surf spot of the day"
+    },
+    {
+     "time": "10:30",
+     "activity": "Morning Surf Lesson / Guided Surf"
+    },
+    {
+     "time": "13:00",
+     "activity": "Packed lunch on the beach"
+    },
+    {
+     "time": "14:30",
+     "activity": "Free surf session to practice your skills"
+    },
+    {
+     "time": "19:00",
+     "activity": "Family-style dinner at the surf house"
+    },
+    {
+     "time": "20:30",
+     "activity": "Photo/video analysis or chill evening"
+    }
+   ],
+   "faqs": [
+    {
+     "q": "What is the required skill level for this package?",
+     "a": "This is for confident intermediate to advanced surfers. You should be able to handle head-high waves, paddle out, and catch waves on your own."
+    },
+    {
+     "q": "Do you provide equipment?",
+     "a": "While most advanced surfers bring their own boards, we have a premium quiver available for rent if you prefer not to travel with yours. Wetsuits are included."
+    },
+    {
+     "q": "Will we surf the most famous spots?",
+     "a": "Absolutely. Our guides will take you to Anchor Point, Killers, Boilers, and other legendary spots when the conditions are right. We also know plenty of secret spots to escape the crowds."
+    }
+   ]
+  },
+  {
+   "id": "nomad-zen",
+   "name": "Surf & Yoga Retreat Taghazout – Morocco Surf Camp with Yoga",
+   "shortName": "Surf & Yoga",
+   "description": "Find your ultimate balance with the perfect fusion of wave riding and mindful movement at our beachfront surf & yoga retreat. This package is designed to rejuvenate your body, calm your mind, and deepen your connection to the ocean. The synergy of surfing and yoga will improve your flexibility, strength, and focus in the water.\n\nWhether you're new to surfing, yoga, or both, our experienced instructors will guide you through a week of physical and mental bliss, helping you find your flow both on the mat and on the board.",
+   "price": "€720",
+   "basePrice": 720,
+   "duration": "7 Days / 7 Nights",
+   "durationWeeks": 1,
+   "features": [
+    "7 nights accommodation in our social shared rooms",
+    "All meals included: healthy breakfast, lunch, and dinner",
+    "Daily surf lessons or guiding based on your level",
+    "Daily energizing morning and restorative evening yoga sessions",
+    "High-quality surf & yoga equipment provided",
+    "A soul-soothing excursion to Paradise Valley",
+    "Professional photos of your surf & yoga moments",
+    "Free airport transfer from/to Agadir (AGA)"
+   ],
+   "imageId": "package3",
+   "colorClass": "border-accent-3",
+   "highlights": [
+    {
+     "icon": "home",
+     "label": "Level",
+     "value": "All Levels"
+    },
+    {
+     "icon": "home",
+     "label": "Focus",
+     "value": "Balance & Flow"
+    },
+    {
+     "icon": "home",
+     "label": "Season",
+     "value": "Year-round"
+    },
+    {
+     "icon": "home",
+     "label": "Stay",
+     "value": "Surf Camp"
+    }
+   ],
+   "schedule": [
+    {
+     "time": "08:00",
+     "activity": "Sunrise Vinyasa Yoga on the rooftop"
+    },
+    {
+     "time": "09:00",
+     "activity": "Hearty, healthy breakfast"
+    },
+    {
+     "time": "10:00",
+     "activity": "Depart for the surf spot of the day"
+    },
+    {
+     "time": "10:30",
+     "activity": "Morning Surf Session"
+    },
+    {
+     "time": "13:00",
+     "activity": "Packed lunch on the beach"
+    },
+    {
+     "time": "17:30",
+     "activity": "Restorative evening Yoga"
+    },
+    {
+     "time": "19:30",
+     "activity": "Delicious family-style dinner"
+    }
+   ],
+   "faqs": [
+    {
+     "q": "I've never done yoga or surfed before, is this for me?",
+     "a": "Yes! This retreat is perfect for all levels. We provide beginner instruction for both surfing and yoga, so you'll be in great hands."
+    },
+    {
+     "q": "What style of yoga do you teach?",
+     "a": "We typically start the day with an energizing Vinyasa flow to prepare you for surfing and end with a gentle, deep-stretching Restorative or Yin session to help your muscles recover."
+    },
+    {
+     "q": "Are the yoga classes mandatory?",
+     "a": "Not at all! This is your holiday. You can participate in as much or as little as you like. But we highly recommend it for the benefits it brings to your surfing and overall well-being."
+    }
+   ]
+  },
+  {
+   "id": "digital-nomad",
+   "name": "Digital Nomad Surf Stay – Long‑Term Surf Camp in Taghazout",
+   "shortName": "Digital Nomad",
+   "description": "Trade your office for an ocean view. This long-stay package is designed for remote workers who want to blend a productive work life with a vibrant surf lifestyle. Our beachfront surf camp offers the perfect setup, with high-speed Starlink internet, comfortable workspaces, and a flexible schedule that lets you answer emails between surf sessions.\n\nBecome part of our community, forge new friendships, and immerse yourself in the laid-back rhythm of Taghazout life. Stay longer, save more, and find your perfect work-surf balance.",
+   "price": "€820",
+   "basePrice": 820,
+   "duration": "14 Days / 14 Nights",
+   "durationWeeks": 2,
+   "features": [
+    "14 nights accommodation in our social shared rooms",
+    "Daily healthy breakfast & dinner",
+    "High-speed Starlink Wi-Fi throughout the camp",
+    "Access to our ocean-view co-working space",
+    "4x surf lessons or guiding sessions to fit your schedule",
+    "Unlimited surfboard & wetsuit rental",
+    "Weekly family dinners and social events",
+    "Discounts on excursions and extra activities"
+   ],
+   "imageId": "package_digital_nomad",
+   "colorClass": "border-accent",
+   "highlights": [
+    {
+     "icon": "home",
+     "label": "Work",
+     "value": "Co-working Space"
+    },
+    {
+     "icon": "home",
+     "label": "Duration",
+     "value": "14+ Nights"
+    },
+    {
+     "icon": "home",
+     "label": "Season",
+     "value": "Year-round"
+    },
+    {
+     "icon": "home",
+     "label": "Stay",
+     "value": "Surf Camp"
+    }
+   ],
+   "schedule": [
+    {
+     "time": "Flex",
+     "activity": "Work in our ocean-view co-working space"
+    },
+    {
+     "time": "Flex",
+     "activity": "Grab a board and surf whenever you want"
+    },
+    {
+     "time": "09:00",
+     "activity": "Daily breakfast available"
+    },
+    {
+     "time": "19:30",
+     "activity": "Community dinner"
+    }
+   ],
+   "faqs": [
+    {
+     "q": "How fast is the internet?",
+     "a": "We have a high-speed Starlink connection, which is fast and reliable for video calls, uploads, and all your work needs."
+    },
+    {
+     "q": "Is the co-working space quiet?",
+     "a": "Yes, we have designated quiet zones for focused work, as well as more social areas for collaboration. The space is available 24/7."
+    },
+    {
+     "q": "Can I stay for longer than 2 weeks?",
+     "a": "Absolutely! We offer monthly rates and are happy to accommodate longer stays. Just mention it in your booking inquiry."
+    }
+   ]
+  },
+  {
+   "id": "couples-getaway",
+   "name": "Couples Surf Getaway – Surf & Stay Package for Two in Morocco",
+   "shortName": "Couples Getaway",
+   "description": "Share an unforgettable adventure with your partner. Our couples surf package blends the thrill of surfing with romantic touches to create the perfect active getaway for two at our beachfront surf camp. Reconnect, learn a new skill together, and create memories that will last a lifetime.\n\nEnjoy private lessons tailored to your pace, stunning ocean views from your room, and special moments designed to connect you both with the ocean and each other.",
+   "price": "€1020",
+   "basePrice": 1020,
+   "isForTwo": true,
+   "duration": "7 Days / 7 Nights",
+   "durationWeeks": 1,
+   "features": [
+    "7 nights accommodation for two (upgrade to private recommended)",
+    "Daily healthy breakfast & dinner",
+    "3x Private surf lessons for just the two of you",
+    "Unlimited surfboard & wetsuit rental",
+    "A romantic dinner for two on our rooftop terrace",
+    "Relaxing couples massage session",
+    "Private airport transfer from/to Agadir (AGA)"
+   ],
+   "imageId": "package_couples",
+   "colorClass": "border-primary",
+   "highlights": [
+    {
+     "icon": "home",
+     "label": "Focus",
+     "value": "Romantic & Active"
+    },
+    {
+     "icon": "home",
+     "label": "Group Size",
+     "value": "Private for 2"
+    },
+    {
+     "icon": "home",
+     "label": "Season",
+     "value": "Year-round"
+    },
+    {
+     "icon": "home",
+     "label": "Stay",
+     "value": "Surf Camp"
+    }
+   ],
+   "schedule": [
+    {
+     "time": "08:00",
+     "activity": "Sunrise Yoga Session (optional)"
+    },
+    {
+     "time": "09:00",
+     "activity": "Hearty surfer's breakfast on the rooftop"
+    },
+    {
+     "time": "10:00",
+     "activity": "Depart for the best surf spot of the day"
+    },
+    {
+     "time": "10:30",
+     "activity": "Morning Surf Lesson / Guided Surf"
+    },
+    {
+     "time": "13:00",
+     "activity": "Packed lunch on the beach"
+    },
+    {
+     "time": "14:30",
+     "activity": "Free surf session to practice your skills"
+    },
+    {
+     "time": "19:00",
+     "activity": "Family-style dinner at the surf house"
+    },
+    {
+     "time": "20:30",
+     "activity": "Photo/video analysis or chill evening"
+    }
+   ],
+   "faqs": [
+    {
+     "q": "Is this package suitable for beginner surfers?",
+     "a": "Yes, it's perfect for all levels. The private lessons will be tailored specifically to your and your partner's abilities."
+    },
+    {
+     "q": "What kind of room will we have?",
+     "a": "The base price includes a shared room, but we highly recommend upgrading to one of our private double or deluxe rooms for a more romantic experience. You can do this during booking."
+    },
+    {
+     "q": "Can we customize the package?",
+     "a": "Of course. We can add extra activities like a yoga session, a trip to Paradise Valley, or a cooking class. Let us know what you have in mind!"
+    }
+   ]
+  },
+  {
+   "id": "group-week",
+   "name": "Group Surf Week – Surf Camp for Friends, Students & Teams",
+   "shortName": "Group Week",
+   "description": "The ultimate group trip, made easy. Whether you're a university club, a corporate team looking for a unique retreat, or just a big group of friends ready for an adventure, we'll organize an unforgettable, customized surf week at our beachfront surf camp. We offer great group discounts and handle all the logistics.\n\nYou just focus on team building, catching waves, and having an incredible time together in the Moroccan sun.",
+   "price": "€470",
+   "basePrice": 470,
+   "duration": "7 Days / 7 Nights",
+   "durationWeeks": 1,
+   "features": [
+    "7 nights accommodation in shared rooms (private available)",
+    "All meals included: Breakfast, Lunch, and Dinner",
+    "Daily group surf lessons tailored to your group's level",
+    "All surf equipment included for the week",
+    "Private airport and spot transfers for your group",
+    "A dedicated group coordinator",
+    "Customizable evening activities and excursions",
+    "Group discount automatically applied (price per person)"
+   ],
+   "imageId": "package_group",
+   "colorClass": "border-accent-2",
+   "highlights": [
+    {
+     "icon": "home",
+     "label": "Group Size",
+     "value": "4+ People"
+    },
+    {
+     "icon": "home",
+     "label": "Best For",
+     "value": "Teams & Friends"
+    },
+    {
+     "icon": "home",
+     "label": "Season",
+     "value": "Year-round"
+    },
+    {
+     "icon": "home",
+     "label": "Stay",
+     "value": "Surf Camp"
+    }
+   ],
+   "schedule": [
+    {
+     "time": "08:00",
+     "activity": "Sunrise Yoga Session (optional)"
+    },
+    {
+     "time": "09:00",
+     "activity": "Hearty surfer's breakfast on the rooftop"
+    },
+    {
+     "time": "10:00",
+     "activity": "Depart for the best surf spot of the day"
+    },
+    {
+     "time": "10:30",
+     "activity": "Morning Surf Lesson / Guided Surf"
+    },
+    {
+     "time": "13:00",
+     "activity": "Packed lunch on the beach"
+    },
+    {
+     "time": "14:30",
+     "activity": "Free surf session to practice your skills"
+    },
+    {
+     "time": "19:00",
+     "activity": "Family-style dinner at the surf house"
+    },
+    {
+     "time": "20:30",
+     "activity": "Photo/video analysis or chill evening"
+    }
+   ],
+   "faqs": [
+    {
+     "q": "What's the minimum group size?",
+     "a": "Our group discounts start for groups of 4 or more people. The more people in your group, the better the price we can offer."
+    },
+    {
+     "q": "Can you accommodate different skill levels within our group?",
+     "a": "Yes, we can split the group based on skill level and assign different coaches to ensure everyone gets the right instruction."
+    },
+    {
+     "q": "Can we book the entire surf house?",
+     "a": "For large groups, it's often possible to book the entire camp for exclusive use. Please contact us well in advance to discuss this possibility."
+    }
+   ]
+  }
+ ],
+ "activities": [
+  {
+   "slug": "imsouane-day-trip",
+   "title": "Imsouane Surf Experience – Day Trip to the Longest Wave in Morocco",
+   "shortName": "Imsouane Surf Trip",
+   "description": "Experience the magic of Imsouane Bay, home to one of the longest and most playful right-hand waves in Africa. On this full-day trip, we'll guide you through epic, leg-burning rides perfect for longboarders and intermediates. After surfing, enjoy a fresh fish lunch overlooking the iconic bay.",
+   "imageId": "imsouane_bay",
+   "inclusions": [
+    {
+     "icon": "home",
+     "text": "Comfortable transport"
+    },
+    {
+     "icon": "home",
+     "text": "Full day of guided surfing"
+    },
+    {
+     "icon": "home",
+     "text": "Lunch at a seaside cafe"
+    }
+   ]
+  },
+  {
+   "slug": "paradise-valley-day-trip",
+   "title": "Paradise Valley Oasis Hike",
+   "shortName": "Paradise Valley Hike",
+   "description": "Escape the coast and discover a hidden oasis in the foothills of the Atlas Mountains. We'll guide you on a beautiful hike through palm groves and ancient Berber villages to discover stunning natural rock pools and waterfalls. A day of swimming, cliff jumping, and relaxing in nature's playground.",
+   "imageId": "paradise_valley",
+   "inclusions": [
+    {
+     "icon": "home",
+     "text": "Comfortable transport"
+    },
+    {
+     "icon": "home",
+     "text": "Guided hike and swim"
+    },
+    {
+     "icon": "home",
+     "text": "Traditional tagine lunch"
+    }
+   ]
+  },
+  {
+   "slug": "sandboarding-in-tamri",
+   "title": "Sunset Sandboarding in Tamri",
+   "shortName": "Sandboarding",
+   "description": "Surf the 'Sahara' by the sea! Just north of Taghazout, the wild beach of Tamri is backed by spectacular sand dunes that drop into the Atlantic. We'll take you for a thrilling afternoon of sandboarding down the golden slopes as the sun sets over the ocean. An unforgettable experience and a great workout!",
+   "imageId": "sand_dunes",
+   "inclusions": [
+    {
+     "icon": "home",
+     "text": "Comfortable transport"
+    },
+    {
+     "icon": "home",
+     "text": "Sandboards provided"
+    },
+    {
+     "icon": "home",
+     "text": "Amazing photo opportunities"
+    }
+   ]
+  }
+ ],
+ "restaurant": {
+  "title": "Mouja Taghazout Kitchen",
+  "subtitle": "Fuel for Your Surf Adventure. Eat Well, Surf Better.",
+  "description": "Our on-site restaurant is the vibrant heart of our beachfront surf camp. It's where we gather to share stories of the day's waves, forge new friendships, and enjoy delicious, healthy food prepared with love. We believe that good food is an essential part of a great surf trip, providing the vital energy you need to paddle out day after day.",
+  "philosophy": "We are passionate about authentic Moroccan flavor and fresh, wholesome ingredients. Our chefs source produce daily from the local Taghazout markets to create a menu that is both nourishing and delicious. Our menu is a blend of traditional family recipes and international favorites, all designed with an active surfer's appetite in mind.",
+  "menuHighlights": [
+   {
+    "name": "Berber Tagine",
+    "description": "Slow-cooked meat or vegetables with aromatic spices, served in the traditional conical pot. A true taste of Morocco.",
+    "imageId": "food_tagine"
+   },
+   {
+    "name": "Surfer's Power Bowl",
+    "description": "A nourishing bowl of quinoa, grilled vegetables, avocado, chickpeas, and a protein of your choice to refuel after a long session.",
+    "imageId": "food_salad_fresh"
+   },
+   {
+    "name": "Ocean Fresh Fish BBQ",
+    "description": "Locally caught fish, grilled to perfection on our rooftop barbecue, served with fresh salads and Moroccan breads.",
+    "imageId": "food_bbq"
+   },
+   {
+    "name": "Moroccan Mint Tea & Pastries",
+    "description": "The traditional Moroccan welcome. Enjoy it any time of day on our rooftop terrace with homemade sweet pastries.",
+    "imageId": "food_chef"
+   }
+  ],
+  "galleryIds": [
+   "food_rooftop_dining",
+   "food_tagine",
+   "food_salad_fresh",
+   "food_chef"
+  ]
+ },
+ "shop": {
+  "title": "The Mouja Taghazout Surf Shop",
+  "subtitle": "Your On-Site Hub for Surf Gear & Local Style",
+  "description": "Our surf shop, conveniently located at our beachfront camp, is your one-stop destination for all your surfing needs in Taghazout. Forget hauling your board across the world; we offer top-quality rentals and everything else you need to get in the water. Whether you're looking to buy your first board or grab a unique souvenir, we've got you covered.",
+  "offerings": [
+   {
+    "title": "Premium Surf Rentals",
+    "description": "A wide range of boards for all levels, from soft-tops for beginners to performance shortboards for advanced surfers. All our wetsuits are from top brands like Rip Curl and are replaced regularly to ensure warmth and comfort.",
+    "icon": "<icon:2813.A>"
+   },
+   {
+    "title": "Boards for Sale",
+    "description": "Ready to commit? We sell a curated selection of new and used boards from local Moroccan shapers and international brands. Our expert team can help you find the perfect board for your style and the local waves.",
+    "icon": "<icon:1255.A>"
+   },
+   {
+    "title": "Authentic Local Apparel",
+    "description": "Take a piece of the Taghazout vibe home. We have our own line of t-shirts, hoodies, and caps designed by local artists, alongside other Moroccan-made crafts and souvenirs. Perfect for remembering your trip.",
+    "icon": "<icon:5947.A>"
+   }
+  ],
+  "products": [
+   {
+    "name": "Mouja Taghazout Classic Tee",
+    "price": "€25",
+    "imageId": "shop_tee"
+   },
+   {
+    "name": "Handmade Moroccan Leash",
+    "price": "€30",
+    "imageId": "shop_leash"
+   },
+   {
+    "name": "Organic Surf Wax",
+    "price": "€5"
+   }
+  ]
+ },
+ "hero": [
+  {
+   "title": "MOUJA TAGHAZOUT",
+   "description": "Beach Front Surf & Yoga Camp — Surf · Yoga · Excursions in Taghazout.",
+   "price": "From €499 / week",
+   "buttonLabel": "View Surf School Package",
+   "buttonLink": "/packages/starter-surfer",
+   "imageId": "hero_coaching"
+  },
+  {
+    "title": "Surf Hard. Stretch Deep.",
+    "description": "Daily surf sessions plus daily yoga, with all meals included.",
+    "price": "From €720 / week",
+   "buttonLabel": "View Surf & Yoga Package",
+   "buttonLink": "/packages/nomad-zen",
+   "imageId": "hero_yoga"
+  },
+  {
+    "title": "For Experienced Surfers Only",
+    "description": "Daily surf guiding to the best breaks in Taghazout Bay with local spot knowledge.",
+    "price": "From €650 / week",
+   "buttonLabel": "View Surf Guiding Package",
+   "buttonLink": "/packages/wave-warrior",
+   "imageId": "hero_guiding"
+  }
+ ],
+ "nav": [
+  {
+   "href": "/about",
+   "label": "About Us"
+  },
+  {
+   "href": "/surf-camp",
+   "label": "Surf Camp",
+   "hasDropdown": true
+  },
+  {
+   "href": "/packages",
+   "label": "Packages",
+   "hasDropdown": true,
+   "items": "packages"
+  },
+  {
+   "href": "/accommodation",
+   "label": "Stay",
+   "hasDropdown": true
+  },
+  {
+   "href": "/activities",
+   "label": "Explore",
+   "hasDropdown": true,
+   "items": "activities"
+  },
+  {
+   "href": "/blog",
+   "label": "Blog"
+  }
+ ],
+"megamenu": [
+  {
+   "type": "dropdown",
+   "label": "Surf Camp",
+   "items": [
+    {
+     "title": "Surf Camp",
+     "href": "/surf-camp"
+    },
+    {
+     "title": "Surf & Yoga",
+     "href": "/surf-yoga"
+    },
+    {
+     "title": "Surf Shop",
+     "href": "/surf-shop"
+    }
+   ]
+  },
+   {
+    "type": "dropdown",
+    "label": "Packages",
+   "items": [
+    {
+     "title": "Beginner & Intermediate",
+     "href": "/packages/starter-surfer",
+     "imageId": "package1"
+    },
+    {
+     "title": "Advanced Guiding",
+     "href": "/packages/wave-warrior",
+     "imageId": "package2"
+    },
+    {
+     "title": "Surf & Yoga",
+     "href": "/packages/nomad-zen",
+     "imageId": "package3"
+    },
+    {
+     "title": "Digital Nomad",
+     "href": "/packages/digital-nomad",
+     "imageId": "package_digital_nomad"
+    },
+    {
+     "title": "Couples Getaway",
+     "href": "/packages/couples-getaway",
+     "imageId": "package_couples"
+    },
+    {
+     "title": "Group Week",
+     "href": "/packages/group-week",
+     "imageId": "package_group"
+    },
+    {
+     "isSeparator": true
+    },
+    {
+     "title": "View All Packages",
+     "href": "/packages"
+    }
+   ]
+  },
+  {
+   "type": "dropdown",
+   "label": "Stay",
+   "items": [
+    {
+     "title": "Accommodation",
+     "href": "/accommodation"
+    },
+    {
+     "title": "Restaurant",
+     "href": "/restaurant"
+    }
+   ]
+  },
+  {
+   "type": "dropdown",
+   "label": "Explore",
+   "items": [
+    {
+     "title": "Imsouane Surf Trip",
+     "href": "/activities#imsouane-day-trip",
+     "imageId": "imsouane_bay"
+    },
+    {
+     "title": "Paradise Valley Hike",
+     "href": "/activities#paradise-valley-day-trip",
+     "imageId": "paradise_valley"
+    },
+    {
+     "title": "Sandboarding",
+     "href": "/activities#sandboarding-in-tamri",
+     "imageId": "sand_dunes"
+    },
+    {
+     "isSeparator": true
+    },
+    {
+     "title": "View All Activities",
+     "href": "/activities"
+    }
+   ]
+  }
+  ],
+  "schedule": null
+}
