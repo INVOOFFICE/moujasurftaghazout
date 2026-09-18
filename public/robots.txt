@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://moujasurfschool.com/sitemap-index.xml
+Sitemap: https://moujasurftaghazout.com/sitemap-index.xml

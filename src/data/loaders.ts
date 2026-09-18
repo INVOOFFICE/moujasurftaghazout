@@ -145,7 +145,7 @@ export const SITE = {
   shortName: 'Mouja Taghazout',
   businessName: 'MOUJA SURF SCHOOL',
   tagline: 'Beach Front Surf & Yoga Camp in Taghazout, Morocco.',
-  url: 'https://moujasurfschool.com',
+  url: 'https://moujasurftaghazout.com',
   phone: '+48 662 763 381',
   whatsapp: 'https://wa.me/48662763381',
   email: 'taghazoutsurfnomads@gmail.com',
