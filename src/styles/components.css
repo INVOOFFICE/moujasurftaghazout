@@ -2497,6 +2497,12 @@
   position: relative;
   background-color: hsl(var(--muted) / 0.5);
 }
+.accom-dialog__info {
+  flex: 1 0 auto;
+  margin-top: 1.1rem;
+  padding: 1.15rem 1.75rem 1.6rem;
+  background-color: hsl(var(--card));
+}
 @media (min-width: 860px) {
   .accom-dialog__panel {
     grid-template-columns: 1fr 1fr;
@@ -2509,6 +2515,21 @@
   .accom-dialog__media .stay-media {
     position: sticky;
     top: 0;
+  }
+}
+@media (max-width: 859px) {
+  .accom-dialog__media {
+    display: contents;
+  }
+  .accom-dialog__media .stay-media {
+    order: 1;
+  }
+  .accom-dialog__body {
+    order: 2;
+  }
+  .accom-dialog__info {
+    order: 3;
+    margin-top: 0;
   }
 }
 .accom-dialog__close {
@@ -2639,7 +2660,7 @@
 }
 .accom-dialog__foot {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -2649,6 +2670,24 @@
 }
 .accom-dialog__price .accom-price__amount {
   font-size: 1.8rem;
+}
+.accom-dialog__price {
+  min-width: 0;
+}
+.accom-dialog__foot .btn {
+  flex-shrink: 0;
+}
+
+@media (max-width: 859px) {
+  .accom-dialog__foot {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.9rem;
+  }
+  .accom-dialog__foot .btn {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 /* --- Pricing note --- */

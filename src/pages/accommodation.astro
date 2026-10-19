@@ -342,6 +342,38 @@ const included = [
 
             <div class="accom-dialog__media">
               <StayMedia images={images} alt={title} variant="detail" />
+              <div class="accom-dialog__info">
+                <dl class="accom-facts">
+                  <div class="accom-fact">
+                    <dt>Maximum guests</dt>
+                    <dd>{stay.maxGuests}</dd>
+                  </div>
+                  <div class="accom-fact">
+                    <dt>Bedrooms</dt>
+                    <dd>{stay.bedrooms}</dd>
+                  </div>
+                  {stay.bathrooms && (
+                    <div class="accom-fact">
+                      <dt>Bathrooms</dt>
+                      <dd>{stay.bathrooms}</dd>
+                    </div>
+                  )}
+                  <div class="accom-fact">
+                    <dt>Zone</dt>
+                    <dd>{stay.zone}</dd>
+                  </div>
+                  {stay.bedConfiguration && (
+                    <div class="accom-fact accom-fact--beds">
+                      <dt>Beds</dt>
+                      <dd>{stay.bedConfiguration}</dd>
+                    </div>
+                  )}
+                  <div class="accom-fact accom-fact--id">
+                    <dt>Property ID</dt>
+                    <dd>{stay.id}</dd>
+                  </div>
+                </dl>
+              </div>
             </div>
 
             <div class="accom-dialog__body">
@@ -354,37 +386,6 @@ const included = [
                 {title}
               </h3>
               <p class="accom-dialog__desc">{accommodationIntro(stay)}</p>
-
-              <dl class="accom-facts">
-                <div class="accom-fact">
-                  <dt>Maximum guests</dt>
-                  <dd>{stay.maxGuests}</dd>
-                </div>
-                <div class="accom-fact">
-                  <dt>Bedrooms</dt>
-                  <dd>{stay.bedrooms}</dd>
-                </div>
-                {stay.bathrooms && (
-                  <div class="accom-fact">
-                    <dt>Bathrooms</dt>
-                    <dd>{stay.bathrooms}</dd>
-                  </div>
-                )}
-                <div class="accom-fact">
-                  <dt>Zone</dt>
-                  <dd>{stay.zone}</dd>
-                </div>
-                {stay.bedConfiguration && (
-                  <div class="accom-fact accom-fact--beds">
-                    <dt>Beds</dt>
-                    <dd>{stay.bedConfiguration}</dd>
-                  </div>
-                )}
-                <div class="accom-fact accom-fact--id">
-                  <dt>Property ID</dt>
-                  <dd>{stay.id}</dd>
-                </div>
-              </dl>
 
               {stay.amenities.length > 0 ? (
                 <div class="accom-amenities">
