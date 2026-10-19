@@ -33,6 +33,7 @@ for (const [path, mod] of Object.entries(assetUrls)) {
 
 export const images = {
   ...apartmentPhotoAssets,
+  brand_logo: { src: local('branding/mouja-logo.webp'), alt: 'MOUJA TAGHAZOUT — Beach Front Surf & Yoga Camp logo.', hint: 'mouja logo' },
   hero_coaching: { src: local('hero/surf-coaching.webp'), alt: 'A surf coach giving instructions to a student on the beach in Taghazout.', hint: 'surf coaching' },
   hero_guiding: { src: local('hero/surf-guiding.webp'), alt: 'A group of surfers being guided to a remote surf spot in Morocco.', hint: 'surf guiding' },
   hero_yoga: { src: local('hero/surf-yoga.webp'), alt: 'A woman in a yoga pose on a rooftop overlooking the ocean in Taghazout.', hint: 'surf yoga' },

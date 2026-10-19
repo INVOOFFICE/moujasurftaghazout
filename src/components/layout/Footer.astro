@@ -1,5 +1,5 @@
 --- 
-import { socials, SITE } from '../../data/loaders';
+import { socials, SITE, image } from '../../data/loaders';
 
 const iconPaths: Record<string, string> = {
   Facebook:
@@ -46,6 +46,7 @@ const cols = [
 <footer class="site-foot">
   <div class="container footer-grid">
     <div class="footer-brand">
+      <img class="brand-logo" src={image('brand_logo').src} alt="" width="48" height="48" loading="lazy" />
       <span class="brand-word">MOUJA TAGHAZOUT<small>Beach Front Surf &amp; Yoga Camp</small></span>
       <p>{SITE.tagline}</p>
       <p class="footer-note">{SITE.address}</p>

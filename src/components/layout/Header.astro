@@ -22,7 +22,7 @@ const current = (label: string, href: string) => isCurrent(href) || isGroupCurre
 <header class="site-head">
   <div class="container nav-wrap">
     <a href="/" class="brand" aria-label={`${SITE.name} — home`}>
-      <img class="brand-logo" src="/logo1.png" alt="" width="42" height="42" loading="eager" />
+      <img class="brand-logo" src={image('brand_logo').src} alt="" width="48" height="48" loading="eager" />
       <span class="brand-word">MOUJA TAGHAZOUT<small>Beach Front Surf &amp; Yoga Camp</small></span>
     </a>
 
@@ -107,7 +107,10 @@ const current = (label: string, href: string) => isCurrent(href) || isGroupCurre
 
 <aside class="drawer" id="mobile-drawer" data-drawer aria-hidden="true" inert>
   <div class="drawer-head">
-    <span class="brand-word">MOUJA TAGHAZOUT<small>Beach Front Surf &amp; Yoga Camp</small></span>
+    <div class="brand">
+      <img class="brand-logo" src={image('brand_logo').src} alt="" width="48" height="48" loading="eager" />
+      <span class="brand-word">MOUJA TAGHAZOUT<small>Beach Front Surf &amp; Yoga Camp</small></span>
+    </div>
     <button class="drawer-close" type="button" data-drawer-close aria-label="Close menu">
       &times;
     </button>
