@@ -38,10 +38,6 @@ const guestBuckets = [
 ].filter((bucket) => stays.some((stay) => bucket.match(stay.maxGuests)));
 
 const stayCount = stays.length;
-const maxGuests = stays.length ? Math.max(...stays.map((stay) => stay.maxGuests)) : 0;
-const bedroomValues = stays.map((stay) => stay.bedrooms).filter((count) => count > 0);
-const minBedrooms = bedroomValues.length ? Math.min(...bedroomValues) : 0;
-const maxBedrooms = bedroomValues.length ? Math.max(...bedroomValues) : 0;
 
 const hasUnverifiedRates = stays.some((stay) => canDisplayRate(stay) && !isRateVerified(stay));
 
@@ -88,54 +84,6 @@ const included = [
       <div class="accom-hero__cta" data-reveal>
         <a class="btn btn-primary btn-lg" href="#stays">Explore Our Stays</a>
         <a class="btn btn-outline btn-lg" href="/booking">Book Your Stay</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="accom-intro">
-        <div class="accom-intro__body" data-reveal>
-          <p class="eyebrow">Your Home in Taghazout</p>
-          <h2>More Than a Place to Stay.</h2>
-          <p>
-            Taghazout moves at the pace of the tide. Mornings start with coffee on the terrace,
-            afternoons are spent in the water, and evenings wind down over mint tea and stories from
-            the day.
-          </p>
-          <p>
-            From social shared rooms to private apartments, every stay sits minutes from the beach
-            and is made for surfers, couples, groups and remote workers alike.
-          </p>
-          {
-            stayCount > 0 && (
-              <ul class="accom-intro__stats">
-                <li class="accom-stat">
-                  <b>{stayCount}</b>
-                  <span>Stays to choose from</span>
-                </li>
-                <li class="accom-stat">
-                  <b>{maxGuests > 0 ? `Up to ${maxGuests}` : '\u2014'}</b>
-                  <span>Guests per unit</span>
-                </li>
-                <li class="accom-stat">
-                  <b>{minBedrooms > 0 ? `${minBedrooms}\u2013${maxBedrooms}` : '\u2014'}</b>
-                  <span>Bedrooms</span>
-                </li>
-              </ul>
-            )
-          }
-        </div>
-        <div class="accom-intro__media" data-reveal>
-          <img
-            src={introVisual.src}
-            alt={introVisual.alt}
-            width="900"
-            height="1100"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
       </div>
     </div>
   </section>
@@ -259,7 +207,7 @@ const included = [
                 <div class="accom-card__body">
                   <p class="accom-card__zone">
                     {stay.zone}
-                    <span aria-hidden="true">·</span>
+                    <span aria-hidden="true">Â·</span>
                     <span class="accom-card__ref">{stay.id}</span>
                   </p>
                   <h3 class="accom-card__title">{title}</h3>
@@ -399,7 +347,7 @@ const included = [
             <div class="accom-dialog__body">
               <p class="accom-dialog__zone">
                 {stay.zone}
-                <span aria-hidden="true">·</span>
+                <span aria-hidden="true">Â·</span>
                 <span class="accom-card__ref">Ref {stay.id}</span>
               </p>
               <h3 class="accom-dialog__title" id={`${dialogId(stay.id)}-title`}>
@@ -422,17 +370,17 @@ const included = [
                     <dd>{stay.bathrooms}</dd>
                   </div>
                 )}
-                {stay.bedConfiguration && (
-                  <div class="accom-fact">
-                    <dt>Beds</dt>
-                    <dd>{stay.bedConfiguration}</dd>
-                  </div>
-                )}
                 <div class="accom-fact">
                   <dt>Zone</dt>
                   <dd>{stay.zone}</dd>
                 </div>
-                <div class="accom-fact">
+                {stay.bedConfiguration && (
+                  <div class="accom-fact accom-fact--beds">
+                    <dt>Beds</dt>
+                    <dd>{stay.bedConfiguration}</dd>
+                  </div>
+                )}
+                <div class="accom-fact accom-fact--id">
                   <dt>Property ID</dt>
                   <dd>{stay.id}</dd>
                 </div>
@@ -555,7 +503,7 @@ const included = [
   });
 
   // Interactive detail gallery: clicking a thumbnail swaps the main photo.
-  // Event delegation on each dialog — one listener per dialog, no duplicates.
+  // Event delegation on each dialog â€” one listener per dialog, no duplicates.
   document.querySelectorAll<HTMLDialogElement>('.accom-dialog').forEach((dialog) => {
     const media = dialog.querySelector<HTMLElement>('.stay-media--detail');
     if (!media) return;

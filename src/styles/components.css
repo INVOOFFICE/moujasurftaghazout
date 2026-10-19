@@ -2127,65 +2127,6 @@
   background-color: hsl(0 0% 100% / 0.12);
 }
 
-/* --- Editorial introduction --- */
-.accom-intro {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2.5rem;
-  align-items: center;
-}
-@media (min-width: 1024px) {
-  .accom-intro {
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 4rem;
-    align-items: start;
-  }
-}
-.accom-intro__body h2 {
-  margin-bottom: 1.1rem;
-}
-.accom-intro__body p {
-  color: hsl(var(--muted-foreground));
-  max-width: 56ch;
-}
-.accom-intro__body p + p {
-  margin-top: 0.9rem;
-}
-.accom-intro__media {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-}
-.accom-intro__media img {
-  width: 100%;
-  aspect-ratio: 5 / 6;
-  object-fit: cover;
-}
-.accom-intro__stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
-}
-.accom-stat {
-  padding: 0.9rem 1rem;
-  border: 1px solid hsl(var(--border));
-  border-radius: var(--radius);
-  background-color: hsl(var(--card));
-}
-.accom-stat b {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  line-height: 1.1;
-  color: hsl(var(--foreground));
-}
-.accom-stat span {
-  font-size: 0.78rem;
-  color: hsl(var(--muted-foreground));
-}
-
 /* --- Filters --- */
 .accom-filters {
   display: grid;
@@ -2619,14 +2560,33 @@
 .accom-facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  align-items: start;
+  gap: 0.6rem;
+  align-items: stretch;
 }
 .accom-fact {
-  padding: 0.75rem 0.9rem;
+  padding: 0.6rem 0.85rem;
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius);
   background-color: hsl(var(--muted) / 0.4);
+}
+.accom-fact--beds {
+  grid-column: 1 / -1;
+}
+.accom-fact--id {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0.2rem 0.1rem;
+  border: 0;
+  border-top: 1px solid hsl(var(--border));
+  border-radius: 0;
+  background: none;
+}
+.accom-fact--id dd {
+  margin-top: 0;
+  font-size: 0.85rem;
 }
 .accom-fact dt {
   font-size: 0.68rem;
