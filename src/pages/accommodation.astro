@@ -1,9 +1,52 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { rooms, image } from '../data/loaders';
+import { image } from '../data/loaders';
+import StayMedia from '../components/accommodation/StayMedia.astro';
+import StayPrice from '../components/accommodation/StayPrice.astro';
+import {
+  activeAccommodations,
+  accommodationTitle,
+  accommodationSummary,
+  accommodationIntro,
+  accommodationImages,
+  canDisplayRate,
+  isRateVerified,
+} from '../data/accommodations';
 
-const shared = rooms.filter((r) => r.id === 'shared');
-const privates = rooms.filter((r) => r.id !== 'shared');
+const hero = image('accommodation_apartment');
+const introVisual = image('accommodation_main_lounge');
+
+const stays = activeAccommodations;
+
+const stayImages = new Map(stays.map((stay) => [stay.id, accommodationImages(stay)] as const));
+
+const typePlainLabels: Record<string, string> = { apartment: 'Apartment', room: 'Room' };
+const typeFilterLabels: Record<string, string> = { apartment: 'Apartments', room: 'Rooms' };
+
+const typeOptions = Array.from(new Set(stays.map((stay) => stay.type)))
+  .filter(Boolean)
+  .map((value) => ({ value, label: typeFilterLabels[value] ?? value }));
+
+const bedroomOptions = Array.from(new Set(stays.map((stay) => stay.bedrooms)))
+  .filter((count) => count > 0)
+  .sort((a, b) => a - b);
+
+const guestBuckets = [
+  { value: '1-4', label: '1\u20134 guests', match: (n: number) => n <= 4 },
+  { value: '5-6', label: '5\u20136 guests', match: (n: number) => n >= 5 && n <= 6 },
+  { value: '7+', label: '7+ guests', match: (n: number) => n >= 7 },
+].filter((bucket) => stays.some((stay) => bucket.match(stay.maxGuests)));
+
+const stayCount = stays.length;
+const maxGuests = stays.length ? Math.max(...stays.map((stay) => stay.maxGuests)) : 0;
+const bedroomValues = stays.map((stay) => stay.bedrooms).filter((count) => count > 0);
+const minBedrooms = bedroomValues.length ? Math.min(...bedroomValues) : 0;
+const maxBedrooms = bedroomValues.length ? Math.max(...bedroomValues) : 0;
+
+const hasUnverifiedRates = stays.some((stay) => canDisplayRate(stay) && !isRateVerified(stay));
+
+const plural = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`;
+const dialogId = (id: string): string => `stay-${id}`;
 
 const included = [
   'Daily cleaning',
@@ -14,138 +57,532 @@ const included = [
   'Secure board storage',
   'Friendly staff 24/7',
 ];
-
-const hero = image('accommodation_private');
 ---
 <BaseLayout
-  title="Surf Camp Accommodation in Taghazout | Rooms & Apartments"
-  description="Beachfront rooms and apartments in Taghazout, Morocco. Shared dorms, private rooms, studios and self-contained apartments, all steps from the waves with easy upgrades from your package."
+  title="Accommodation in Taghazout | Rooms & Apartments"
+  description="Browse beachfront rooms and self-contained apartments in Taghazout, Morocco. Compare stays by guests and bedrooms, then book your coastal escape with MOUJA TAGHAZOUT."
   canonical="/accommodation"
   bodyClass="page-accommodation"
   breadcrumb={['Accommodation']}
 >
-  <section class="detail-hero">
-    <img src={hero.src} alt={hero.alt} />
-    <div class="container">
+  <section class="accom-hero">
+    <img
+      class="accom-hero__bg"
+      src={hero.src}
+      alt={hero.alt}
+      width="1600"
+      height="900"
+      loading="eager"
+      decoding="async"
+    />
+    <div class="container accom-hero__inner">
       <nav class="breadcrumbs" aria-label="Breadcrumb">
         <a href="/">Home</a><span aria-hidden="true">/</span><span>Accommodation</span>
       </nav>
-      <h1>Stay by the Ocean in Taghazout</h1>
-      <p>Comfortable rooms and private apartments designed for surfers, couples, groups, and digital nomads.</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="feature-row">
-        <div class="feature-row__media">
-          <img src={image('accommodation_main_lounge').src} alt={image('accommodation_main_lounge').alt} width="960" height="720" loading="lazy" />
-        </div>
-        <div class="feature-row__body">
-          <span class="badge badge-primary">Your Home Base</span>
-          <h2>Your Home Base in Taghazout</h2>
-          <p>Welcome to your home away from home. At Mouja Taghazout, our beachfront accommodation is more than just a place to sleep - it is the heart of our community. We offer a range of clean, comfortable, and stylish options to suit every traveler and budget.</p>
-          <p>All our packages include a bed in a vibrant shared room as a base, with easy upgrades to private rooms or self-contained apartments. Find your perfect spot to rest, recharge, and share stories after a day in the waves.</p>
-          <div class="feature-row__cta">
-            <a class="btn btn-primary" href="/booking">Book Your Stay</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--tint">
-    <div class="container">
-      <header class="section-head">
-        <p class="eyebrow">Rooms &amp; Apartments</p>
-        <h2>A Range of Options for Every Traveler</h2>
-      </header>
-
-      <h3 class="subhead">Social &amp; Vibrant Shared Rooms</h3>
-      <div class="room-grid">
-        {shared.map((r) => (
-          <article class="room-card">
-            <div class="room-card__media">
-              <img src={image(r.imageId).src} alt={image(r.imageId).alt} width="640" height="440" loading="lazy" />
-            </div>
-            <div class="room-card__body">
-              <h4>{r.name}</h4>
-              <p class="room-card__sub">{r.subtitle}</p>
-              <ul class="checks">
-                {r.features.map((f) => (
-                  <li>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <p class="room-card__price">Included in all packages</p>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <h3 class="subhead">Private Rooms &amp; Apartments</h3>
-      <div class="room-grid">
-        {privates.map((r) => (
-          <article class="room-card">
-            <div class="room-card__media">
-              <img src={image(r.imageId).src} alt={image(r.imageId).alt} width="640" height="440" loading="lazy" />
-            </div>
-            <div class="room-card__body">
-              <h4>{r.name}</h4>
-              <p class="room-card__sub">{r.subtitle}</p>
-              <ul class="checks">
-                {r.features.map((f) => (
-                  <li>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <p class="room-card__price">+&euro;{r.upgradePrice} / week</p>
-            </div>
-          </article>
-        ))}
+      <p class="eyebrow" data-reveal>Beachfront stays in Taghazout</p>
+      <h1 data-reveal>Stay Close to the Waves.</h1>
+      <p class="accom-hero__lead" data-reveal>
+        Discover your perfect stay in Taghazout, from comfortable shared spaces to private apartments
+        designed for your coastal escape.
+      </p>
+      <div class="accom-hero__cta" data-reveal>
+        <a class="btn btn-primary btn-lg" href="#stays">Explore Our Stays</a>
+        <a class="btn btn-outline btn-lg" href="/booking">Book Your Stay</a>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <header class="section-head">
-        <p class="eyebrow">What's Included</p>
-        <h2>What's Included in All Stays</h2>
+      <div class="accom-intro">
+        <div class="accom-intro__body" data-reveal>
+          <p class="eyebrow">Your Home in Taghazout</p>
+          <h2>More Than a Place to Stay.</h2>
+          <p>
+            Taghazout moves at the pace of the tide. Mornings start with coffee on the terrace,
+            afternoons are spent in the water, and evenings wind down over mint tea and stories from
+            the day.
+          </p>
+          <p>
+            From social shared rooms to private apartments, every stay sits minutes from the beach
+            and is made for surfers, couples, groups and remote workers alike.
+          </p>
+          {
+            stayCount > 0 && (
+              <ul class="accom-intro__stats">
+                <li class="accom-stat">
+                  <b>{stayCount}</b>
+                  <span>Stays to choose from</span>
+                </li>
+                <li class="accom-stat">
+                  <b>{maxGuests > 0 ? `Up to ${maxGuests}` : '\u2014'}</b>
+                  <span>Guests per unit</span>
+                </li>
+                <li class="accom-stat">
+                  <b>{minBedrooms > 0 ? `${minBedrooms}\u2013${maxBedrooms}` : '\u2014'}</b>
+                  <span>Bedrooms</span>
+                </li>
+              </ul>
+            )
+          }
+        </div>
+        <div class="accom-intro__media" data-reveal>
+          <img
+            src={introVisual.src}
+            alt={introVisual.alt}
+            width="900"
+            height="1100"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" id="stays">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <p class="eyebrow">Accommodation</p>
+        <h2>Find Your Perfect Stay</h2>
+        <p>Explore our accommodation options and find the space that suits your trip.</p>
       </header>
-      <div class="included-grid">
-        {included.map((i) => (
-          <div class="included-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
-            <span>{i}</span>
+
+      <div class="accom-filters" data-accom-filters data-reveal>
+        <div class="accom-filter-group" role="group" aria-label="Filter by stay type">
+          <span class="accom-filter-label">Type</span>
+          <div class="accom-chips">
+            <button type="button" class="accom-chip" data-filter="type" data-value="all" aria-pressed="true">
+              All Stays
+            </button>
+            {
+              typeOptions.map((option) => (
+                <button
+                  type="button"
+                  class="accom-chip"
+                  data-filter="type"
+                  data-value={option.value}
+                  aria-pressed="false"
+                >
+                  {option.label}
+                </button>
+              ))
+            }
           </div>
-        ))}
+        </div>
+
+        {
+          guestBuckets.length > 0 && (
+            <div class="accom-filter-group" role="group" aria-label="Filter by guest capacity">
+              <span class="accom-filter-label">Guests</span>
+              <div class="accom-chips">
+                <button
+                  type="button"
+                  class="accom-chip"
+                  data-filter="guests"
+                  data-value="all"
+                  aria-pressed="true"
+                >
+                  Any
+                </button>
+                {guestBuckets.map((bucket) => (
+                  <button
+                    type="button"
+                    class="accom-chip"
+                    data-filter="guests"
+                    data-value={bucket.value}
+                    aria-pressed="false"
+                  >
+                    {bucket.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )
+        }
+
+        {
+          bedroomOptions.length > 0 && (
+            <div class="accom-filter-group" role="group" aria-label="Filter by bedrooms">
+              <span class="accom-filter-label">Bedrooms</span>
+              <div class="accom-chips">
+                <button
+                  type="button"
+                  class="accom-chip"
+                  data-filter="bedrooms"
+                  data-value="all"
+                  aria-pressed="true"
+                >
+                  Any
+                </button>
+                {bedroomOptions.map((count) => (
+                  <button
+                    type="button"
+                    class="accom-chip"
+                    data-filter="bedrooms"
+                    data-value={String(count)}
+                    aria-pressed="false"
+                  >
+                    {plural(count, 'bedroom')}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )
+        }
+
+        <div class="accom-filter-foot">
+          <p class="accom-results" role="status" aria-live="polite">
+            <span data-accom-count>{stayCount}</span> stays
+          </p>
+          <button type="button" class="accom-reset" data-accom-reset>Reset filters</button>
+        </div>
+      </div>
+
+      <div class="accom-grid" data-accom-grid>
+        {
+          stays.map((stay) => {
+            const images = stayImages.get(stay.id) ?? [];
+            const title = accommodationTitle(stay);
+            return (
+              <article
+                class="accom-card"
+                data-accom-card
+                data-type={stay.type}
+                data-guests={stay.maxGuests}
+                data-bedrooms={stay.bedrooms}
+              >
+                <div class="accom-card__media">
+                  <StayMedia images={images} alt={title} variant="card" />
+                  <span class="accom-card__tag">{typePlainLabels[stay.type] ?? stay.type}</span>
+                </div>
+                <div class="accom-card__body">
+                  <p class="accom-card__zone">
+                    {stay.zone}
+                    <span aria-hidden="true">·</span>
+                    <span class="accom-card__ref">{stay.id}</span>
+                  </p>
+                  <h3 class="accom-card__title">{title}</h3>
+                  <p class="accom-card__desc">{accommodationSummary(stay)}</p>
+                  <ul class="accom-meta">
+                    <li>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M16 19v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1" />
+                        <circle cx="9.5" cy="7" r="3.2" />
+                        <path d="M21 19v-1a4 4 0 0 0-3-3.87" />
+                      </svg>
+                      Up to {stay.maxGuests} guests
+                    </li>
+                    <li>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 8v11" />
+                        <path d="M3 14h18v5" />
+                        <path d="M21 19v-5a2 2 0 0 0-2-2h-8v4" />
+                        <circle cx="7" cy="11" r="1.6" />
+                      </svg>
+                      {plural(stay.bedrooms, 'bedroom')}
+                    </li>
+                  </ul>
+                  <div class="accom-card__foot">
+                    <div class="accom-card__price">
+                      <StayPrice
+                        price={stay.price}
+                        currency={stay.currency}
+                        period={stay.ratePeriod}
+                        visible={canDisplayRate(stay)}
+                        verified={isRateVerified(stay)}
+                        compact
+                      />
+                    </div>
+                    <div class="accom-card__actions">
+                      <button
+                        type="button"
+                        class="btn btn-outline btn-sm"
+                        data-dialog-open={dialogId(stay.id)}
+                      >
+                        View Details
+                      </button>
+                      <a class="btn btn-primary btn-sm" href={`/booking?accommodation=${stay.id}`}>
+                        Book This Stay
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })
+        }
+      </div>
+
+      <p class="accom-empty" data-accom-empty hidden>
+        No stays match these filters yet. Try widening your search or reset the filters.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <p class="eyebrow">Included As Standard</p>
+        <h2>Comforts in Every Stay</h2>
+      </header>
+      <div class="included-grid" data-reveal>
+        {
+          included.map((item) => (
+            <div class="included-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span>{item}</span>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <section class="section section--tint">
     <div class="container">
-      <div class="two-col">
-        <div>
-          <span class="badge badge-primary">Simple, Transparent Pricing</span>
-          <h2>No Hidden Fees, No Surprises</h2>
-          <p>Our pricing is easy to understand. Your final price is simply the package's base price plus your chosen room upgrade. All packages start with a shared room included, so you can customize your stay to fit your budget and style.</p>
-          <div class="feature-row__cta">
-            <a class="btn btn-outline" href="/packages">View Surf Packages</a>
-          </div>
+      <div class="two-col accom-pricing">
+        <div data-reveal>
+          <p class="eyebrow">Rates &amp; Billing</p>
+          <h2>Simple, Transparent Nightly Rates</h2>
+          <p class="accom-pricing__intro">
+            Every stay is booked as a whole unit, priced per night in euros. The amount shown is for
+            the entire apartment or room, not per person.
+          </p>
+          <ul class="checks">
+            <li>Currency: EUR (&euro;)</li>
+            <li>Billed per night, per entire unit</li>
+            <li>Choose your dates and we confirm availability personally</li>
+          </ul>
+          {
+            hasUnverifiedRates && (
+              <p class="note accom-rate-note">
+                Rates shown are provisional and pending final confirmation. Please contact us to
+                confirm the exact price for your dates before booking.
+              </p>
+            )
+          }
         </div>
-        <div class="cta-banner">
-          <img src={image('accommodation_studio').src} alt="" aria-hidden="true" />
+        <div class="cta-banner" data-reveal>
+          <img src={introVisual.src} alt="" aria-hidden="true" loading="lazy" decoding="async" />
           <h3>Ready to Book Your Stay?</h3>
-          <p>Choose your package, select your room, and your price updates instantly.</p>
-          <a class="btn btn-primary btn-lg" href="/booking">Check Availability</a>
+          <p>Pick your apartment or room and we will confirm availability and your final rate.</p>
+          <a class="btn btn-primary btn-lg" href="/booking">Book Your Stay</a>
         </div>
       </div>
     </div>
   </section>
+
+  {
+    stays.map((stay) => {
+      const images = stayImages.get(stay.id) ?? [];
+      const title = accommodationTitle(stay);
+      return (
+        <dialog
+          class="accom-dialog"
+          id={dialogId(stay.id)}
+          aria-labelledby={`${dialogId(stay.id)}-title`}
+        >
+          <div class="accom-dialog__panel">
+            <button type="button" class="accom-dialog__close" data-dialog-close aria-label="Close details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 6 6 18M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div class="accom-dialog__media">
+              <StayMedia images={images} alt={title} variant="detail" />
+            </div>
+
+            <div class="accom-dialog__body">
+              <p class="accom-dialog__zone">
+                {stay.zone}
+                <span aria-hidden="true">·</span>
+                <span class="accom-card__ref">Ref {stay.id}</span>
+              </p>
+              <h3 class="accom-dialog__title" id={`${dialogId(stay.id)}-title`}>
+                {title}
+              </h3>
+              <p class="accom-dialog__desc">{accommodationIntro(stay)}</p>
+
+              <dl class="accom-facts">
+                <div class="accom-fact">
+                  <dt>Maximum guests</dt>
+                  <dd>{stay.maxGuests}</dd>
+                </div>
+                <div class="accom-fact">
+                  <dt>Bedrooms</dt>
+                  <dd>{stay.bedrooms}</dd>
+                </div>
+                {stay.bathrooms && (
+                  <div class="accom-fact">
+                    <dt>Bathrooms</dt>
+                    <dd>{stay.bathrooms}</dd>
+                  </div>
+                )}
+                {stay.bedConfiguration && (
+                  <div class="accom-fact">
+                    <dt>Beds</dt>
+                    <dd>{stay.bedConfiguration}</dd>
+                  </div>
+                )}
+                <div class="accom-fact">
+                  <dt>Zone</dt>
+                  <dd>{stay.zone}</dd>
+                </div>
+                <div class="accom-fact">
+                  <dt>Property ID</dt>
+                  <dd>{stay.id}</dd>
+                </div>
+              </dl>
+
+              {stay.amenities.length > 0 ? (
+                <div class="accom-amenities">
+                  <h4>Verified amenities</h4>
+                  <ul class="accom-amenity-list">
+                    {stay.amenities.map((amenity) => (
+                      <li class="accom-amenity">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                        {amenity}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <p class="accom-dialog__pending">
+                  Amenities, bed configuration and photographs will be published here once they are
+                  confirmed.
+                </p>
+              )}
+
+              <div class="accom-dialog__foot">
+                <div class="accom-dialog__price">
+                  <StayPrice
+                    price={stay.price}
+                    currency={stay.currency}
+                    period={stay.ratePeriod}
+                    visible={canDisplayRate(stay)}
+                    verified={isRateVerified(stay)}
+                  />
+                </div>
+                <a class="btn btn-primary" href={`/booking?accommodation=${stay.id}`}>
+                  Book This Stay
+                </a>
+              </div>
+            </div>
+          </div>
+        </dialog>
+      );
+    })
+  }
 </BaseLayout>
+
+<script>
+  const filterRoot = document.querySelector<HTMLElement>('[data-accom-filters]');
+  const grid = document.querySelector<HTMLElement>('[data-accom-grid]');
+  const cards = grid ? Array.from(grid.querySelectorAll<HTMLElement>('[data-accom-card]')) : [];
+  const countEl = document.querySelector<HTMLElement>('[data-accom-count]');
+  const emptyEl = document.querySelector<HTMLElement>('[data-accom-empty]');
+
+  if (filterRoot && grid) {
+    const state: Record<string, string> = { type: 'all', guests: 'all', bedrooms: 'all' };
+
+    const matches = (card: HTMLElement): boolean => {
+      const type = card.dataset.type ?? '';
+      const guests = Number(card.dataset.guests ?? '0');
+      const bedrooms = card.dataset.bedrooms ?? '';
+
+      if (state.type !== 'all' && type !== state.type) return false;
+      if (state.bedrooms !== 'all' && bedrooms !== state.bedrooms) return false;
+      if (state.guests === '1-4' && guests > 4) return false;
+      if (state.guests === '5-6' && (guests < 5 || guests > 6)) return false;
+      if (state.guests === '7+' && guests < 7) return false;
+      return true;
+    };
+
+    const apply = () => {
+      let visible = 0;
+      cards.forEach((card) => {
+        const show = matches(card);
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+      if (countEl) countEl.textContent = String(visible);
+      if (emptyEl) emptyEl.hidden = visible !== 0;
+    };
+
+    filterRoot.querySelectorAll<HTMLButtonElement>('.accom-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const group = chip.dataset.filter;
+        if (!group) return;
+        state[group] = chip.dataset.value ?? 'all';
+        filterRoot
+          .querySelectorAll<HTMLButtonElement>(`.accom-chip[data-filter="${group}"]`)
+          .forEach((peer) => peer.setAttribute('aria-pressed', String(peer === chip)));
+        apply();
+      });
+    });
+
+    filterRoot.querySelector<HTMLButtonElement>('[data-accom-reset]')?.addEventListener('click', () => {
+      state.type = 'all';
+      state.guests = 'all';
+      state.bedrooms = 'all';
+      filterRoot.querySelectorAll<HTMLButtonElement>('.accom-chip').forEach((chip) => {
+        chip.setAttribute('aria-pressed', String(chip.dataset.value === 'all'));
+      });
+      apply();
+    });
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-dialog-open]').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const id = trigger.dataset.dialogOpen;
+      if (!id) return;
+      const dialog = document.getElementById(id);
+      if (dialog instanceof HTMLDialogElement) dialog.showModal();
+    });
+  });
+
+  document.querySelectorAll<HTMLDialogElement>('.accom-dialog').forEach((dialog) => {
+    dialog.querySelector('[data-dialog-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  });
+
+  // Interactive detail gallery: clicking a thumbnail swaps the main photo.
+  // Event delegation on each dialog — one listener per dialog, no duplicates.
+  document.querySelectorAll<HTMLDialogElement>('.accom-dialog').forEach((dialog) => {
+    const media = dialog.querySelector<HTMLElement>('.stay-media--detail');
+    if (!media) return;
+    const main = media.querySelector<HTMLImageElement>('[data-gallery-main]');
+    const thumbs = Array.from(media.querySelectorAll<HTMLButtonElement>('[data-gallery-thumb]'));
+    if (!main || thumbs.length === 0) return;
+
+    const select = (thumb: HTMLButtonElement) => {
+      const src = thumb.dataset.src;
+      const alt = thumb.dataset.alt;
+      if (!src) return;
+      main.src = src;
+      if (alt) main.alt = alt;
+      thumbs.forEach((peer) => peer.setAttribute('aria-pressed', String(peer === thumb)));
+    };
+
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener('click', () => select(thumb));
+    });
+
+    // Restore the default photo when the dialog is reopened.
+    dialog.addEventListener('close', () => {
+      const defaultSrc = main.dataset.defaultSrc;
+      const defaultAlt = main.dataset.defaultAlt;
+      if (defaultSrc) main.src = defaultSrc;
+      if (defaultAlt) main.alt = defaultAlt;
+      thumbs.forEach((thumb) => thumb.setAttribute('aria-pressed', 'false'));
+    });
+  });
+</script>

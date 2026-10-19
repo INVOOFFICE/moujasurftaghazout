@@ -1,0 +1,41 @@
+---
+import { ACCOMMODATION_PRICING } from '../../data/accommodations';
+
+interface Props {
+  price: number;
+  currency?: string;
+  period?: string;
+  /** Whether an amount may be shown at all (see ACCOMMODATION_PRICING). */
+  visible: boolean;
+  /** Whether the amount has been confirmed by the client. */
+  verified: boolean;
+  compact?: boolean;
+}
+
+const { price, currency = 'EUR', period = 'night', visible, verified, compact = false } = Astro.props;
+const showAmount = visible && price > 0;
+const symbol = currency === 'EUR' ? '\u20AC' : `${currency} `;
+---
+
+<span class="accom-price-block">
+  {
+    showAmount ? (
+      <>
+        <span class="accom-price">
+          <span class="accom-price__amount">
+            {symbol}
+            {price}
+          </span>
+          <span class="accom-price__period">/ {period}</span>
+        </span>
+        {!verified && (
+          <span class="accom-prov">
+            {compact ? ACCOMMODATION_PRICING.provisionalShortLabel : ACCOMMODATION_PRICING.provisionalLabel}
+          </span>
+        )}
+      </>
+    ) : (
+      <span class="accom-price accom-price--request">{ACCOMMODATION_PRICING.onRequestLabel}</span>
+    )
+  }
+</span>

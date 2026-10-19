@@ -13,7 +13,26 @@ const assetUrls = import.meta.glob('../assets/images/**/*.webp', {
 const local = (rel: string): string =>
   assetUrls[`../assets/images/${rel}`]?.default?.src ?? '';
 
+/*
+ * Photos réelles des logements, automatiquement enregistrées depuis les
+ * sous-dossiers accommodation/<ID>/photo-NN.webp (conversion WebP des
+ * photographies fournies par le client, indexées par ID stable).
+ */
+const apartmentPhotoAssets: Record<string, ImageAsset> = {};
+for (const [path, mod] of Object.entries(assetUrls)) {
+  const match = /\.\.\/assets\/images\/accommodation\/(A\d+)\/photo-(\d+)\.webp$/.exec(path);
+  if (!match) continue;
+  const apartmentId = match[1];
+  const ordinal = Number.parseInt(match[2], 10);
+  apartmentPhotoAssets[`accommodation_${apartmentId.toLowerCase()}_${ordinal}`] = {
+    src: mod.default.src,
+    alt: `Photograph ${ordinal} of accommodation ${apartmentId}`,
+    hint: `apartment ${apartmentId}`,
+  };
+}
+
 export const images = {
+  ...apartmentPhotoAssets,
   hero_coaching: { src: local('hero/surf-coaching.webp'), alt: 'A surf coach giving instructions to a student on the beach in Taghazout.', hint: 'surf coaching' },
   hero_guiding: { src: local('hero/surf-guiding.webp'), alt: 'A group of surfers being guided to a remote surf spot in Morocco.', hint: 'surf guiding' },
   hero_yoga: { src: local('hero/surf-yoga.webp'), alt: 'A woman in a yoga pose on a rooftop overlooking the ocean in Taghazout.', hint: 'surf yoga' },

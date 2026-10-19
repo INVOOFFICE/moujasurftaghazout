@@ -25,3 +25,14 @@ archive-original/
 # OS
 Thumbs.db
 .DS_Store
+
+# Local working data (kept out of the published repository)
+# The accommodation CSV is inlined into src/data/accommodations.source.ts;
+# refresh it with `npm run data:accommodations` after editing the CSV.
+*.csv
+MOUJA_UPDATE_ACCOMMODATION_FROM_CSV.md
+promt ajour accomondation.txt
+
+# Raw source photographs (site ships optimized .webp only)
+src/assets/images/accommodation/**/*.jpeg
+src/assets/images/accommodation/**/*.jpg

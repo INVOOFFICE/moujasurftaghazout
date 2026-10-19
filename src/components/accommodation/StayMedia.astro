@@ -1,0 +1,75 @@
+---
+import type { ResolvedImage } from '../../data/accommodations';
+
+interface Props {
+  images: ResolvedImage[];
+  alt: string;
+  variant?: 'card' | 'detail';
+  loading?: 'lazy' | 'eager';
+}
+
+const { images, alt, variant = 'card', loading = 'lazy' } = Astro.props;
+const [lead, ...rest] = images;
+const hasImages = Boolean(lead?.src);
+const hasThumbs = hasImages && variant === 'detail' && rest.length > 0;
+---
+
+<div class:list={['stay-media', `stay-media--${variant}`]}>
+  <div class="stay-media__frame">
+    {
+      hasImages ? (
+        <img
+          class="stay-media__img"
+          src={lead.src}
+          data-gallery-main
+          data-default-src={lead.src}
+          data-default-alt={lead.alt || alt}
+          alt={lead.alt || alt}
+          width="800"
+          height="600"
+          loading={loading}
+          decoding="async"
+        />
+      ) : (
+        <div class="stay-ph" role="img" aria-label={`Photographs of ${alt} will be available soon`}>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+            <circle cx="9" cy="10" r="1.6"></circle>
+            <path d="M21 16l-5-5-4.5 4.5L9 13l-6 6"></path>
+          </svg>
+          <span>Photographs coming soon</span>
+        </div>
+      )
+    }
+  </div>
+
+  {
+    hasThumbs && (
+      <ul class="stay-media__thumbs">
+        {rest.map((im, i) => (
+          <li>
+            <button
+              type="button"
+              class="stay-media__thumb"
+              data-gallery-thumb
+              data-src={im.src}
+              data-alt={im.alt || `Photograph ${i + 2} of ${alt}`}
+              aria-label={`Show photograph ${i + 2} of ${alt}`}
+              aria-pressed="false"
+            >
+              <img src={im.src} alt="" width="160" height="120" loading="lazy" decoding="async" />
+            </button>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</div>

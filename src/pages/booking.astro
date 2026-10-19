@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE, packages, image } from '../data/loaders';
+import { activeAccommodations, accommodationTitle } from '../data/accommodations';
 
 const hero = image('hero_coaching');
 ---
@@ -59,6 +60,15 @@ const hero = image('hero_coaching');
             </div>
           </div>
           <div class="field">
+            <label for="accommodation">Accommodation (optional)</label>
+            <select class="select" id="accommodation" name="accommodation">
+              <option value="">No preference — recommend the best fit</option>
+              {activeAccommodations.map((stay) => (
+                <option value={stay.id}>{accommodationTitle(stay)} — {stay.zone}</option>
+              ))}
+            </select>
+          </div>
+          <div class="field">
             <label for="message">Message</label>
             <textarea
               class="textarea"
@@ -103,6 +113,14 @@ const hero = image('hero_coaching');
 
 <script>
   const form = document.querySelector<HTMLFormElement>('[data-booking-form]');
+  const accommodationSelect = form?.querySelector<HTMLSelectElement>('select[name="accommodation"]');
+
+  if (accommodationSelect) {
+    const requested = new URLSearchParams(window.location.search).get('accommodation');
+    if (requested && Array.from(accommodationSelect.options).some((o) => o.value === requested)) {
+      accommodationSelect.value = requested;
+    }
+  }
 
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -111,6 +129,9 @@ const hero = image('hero_coaching');
     const email = (data.get('email') as string)?.trim() ?? '';
     const dates = (data.get('dates') as string)?.trim() ?? '';
     const pkg = (data.get('package') as string)?.trim() ?? '';
+    const accommodation = accommodationSelect?.value
+      ? (accommodationSelect.selectedOptions[0]?.text ?? '')
+      : '';
     const message = (data.get('message') as string)?.trim() ?? '';
 
     if (!name || !email) {
@@ -124,6 +145,7 @@ const hero = image('hero_coaching');
       `Email: ${email}`,
       dates ? `Dates: ${dates}` : '',
       pkg ? `Package: ${pkg}` : '',
+      accommodation ? `Accommodation: ${accommodation}` : '',
       message ? `Message: ${message}` : '',
     ].filter(Boolean);
 
