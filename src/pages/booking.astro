@@ -33,7 +33,7 @@ const hero = image('hero_coaching');
           Fill in the form and we'll get back to you within 24 hours with availability and a tailored
           quote. Submitting opens WhatsApp with your details ready to send.
         </p>
-        <form class="form" data-booking-form novalidate>
+        <form class="form" data-booking-form data-whatsapp={SITE.whatsapp} novalidate>
           <div class="form-row form-row--2">
             <div class="field">
               <label for="name">Full Name</label>
@@ -149,7 +149,8 @@ const hero = image('hero_coaching');
       message ? `Message: ${message}` : '',
     ].filter(Boolean);
 
-    const url = `https://wa.me/48662763381?text=${encodeURIComponent(lines.join('\n'))}`;
+    const whatsappUrl = form?.dataset.whatsapp ?? '';
+    const url = `${whatsappUrl}?text=${encodeURIComponent(lines.join('\n'))}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   });
 </script>

@@ -120,7 +120,7 @@ export const socials: SocialLink[] = [
   { label: 'Facebook', href: 'https://www.facebook.com/share/1C998bz4EK/?mibextid=wwXIfr' },
   { label: 'Instagram', href: 'https://www.instagram.com/taghazoutsurfnomads/' },
   { label: 'Pinterest', href: 'https://www.pinterest.com/taghazoutsurfnomads/' },
-  { label: 'WhatsApp', href: 'https://wa.me/48662763381' },
+  { label: 'WhatsApp', href: 'https://wa.me/212615705149' },
 ];
 
 export const packages = data.packages;
@@ -146,9 +146,9 @@ export const SITE = {
   businessName: 'MOUJA SURF SCHOOL',
   tagline: 'Beach Front Surf & Yoga Camp in Taghazout, Morocco.',
   url: 'https://moujasurftaghazout.com',
-  phone: '+48 662 763 381',
-  whatsapp: 'https://wa.me/48662763381',
-  email: 'taghazoutsurfnomads@gmail.com',
+  phone: '+212615705149',
+  whatsapp: 'https://wa.me/212615705149',
+  email: 'mojataghazout@gmail.com',
   address: 'Anchor Point, Taghazout, 80022, Agadir, Morocco',
   addressObject: {
     streetAddress: 'Anchor Point',
